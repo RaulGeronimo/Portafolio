@@ -17,7 +17,7 @@ h1 {
 
 /* ---------------------------------- SECCION INICIO ---------------------------------- */
 #inicio {
-    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("img/fondo.jpg");
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("../img/fondo.jpg");
     background-size: cover;
     background-position: center center;
     height: 100vh;
@@ -224,6 +224,12 @@ h1 {
     text-decoration: solid;
 }
 
+#sobremi .scroll {
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow-x: auto;
+}
+
 /* ---------------------------------- SECCION SERVICIOS ---------------------------------- */
 #servicios {
     padding: 100px 15px;
@@ -297,7 +303,7 @@ h1 {
 
 /* ---------------------------- SECCION SKILLS - HABILIDADES ---------------------------- */
 .contenedor-skills {
-    background: linear-gradient(#2C5364, rgba(33, 16, 16, 0.8)), url("./img/skills.jpg");
+    background: linear-gradient(#2C5364, rgba(33, 16, 16, 0.8)), url("../img/skills.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;

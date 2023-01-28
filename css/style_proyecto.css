@@ -16,6 +16,12 @@ h1 {
 }
 
 /* ------------------------------- SECCION INICIO ------------------------------- */
+#inicio {
+    background-size: cover;
+    background-position: center center;
+    height: 55px;
+}
+
 #inicio .contenido header {
     background-color: rgb(0, 0, 0);
     position: fixed;
@@ -138,6 +144,11 @@ h1 {
     display: flex;
 }
 
+#sobremi .contenedor-foto {
+    max-width: 400px;
+    margin-right: 80px;
+}
+
 #sobremi .contenedor-foto img {
     padding: 50px;
     width: 100%;
@@ -236,6 +247,13 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
+#diagrama .contenedor-diagrama img {
+    padding: 20px;
+    width: 50%;
+    border-radius: 20px;
+    background-color: #f3f3f3;
+}
+
 /* --------------------------------------- FOOTER --------------------------------------- */
 footer {
     background-color: #000;
@@ -291,8 +309,7 @@ footer a {
 
     /* SECCION SOBRE MI */
     #sobremi {
-        padding: 50px;
-        margin-top: 20px;
+        padding: 50px 0;
         display: block;
     }
 
@@ -312,6 +329,12 @@ footer a {
     #sobremi .sobremi h2 {
         font-size: 25px;
         text-align: center;
+    }
+
+    /* DIAGRAMA */
+    #diagrama .contenedor-diagrama img {
+        width: 100%;
+        padding: 8px;
     }
 
     /* SECCION SERVICIOS */

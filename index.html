@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -63,9 +63,6 @@
 
     <!-- SOBRE MI -->
     <section id="sobremi">
-        <!-- <div class="contenedor-foto">
-            <img src="./img/" alt="Foto">
-        </div> -->
         <div class="sobremi">
             <p class="titulo-seccion">Sobre mi</p>
             <h2>Hola, soy <span>Raúl Gerónimo</span></h2>
@@ -73,7 +70,8 @@
             <p>Soy Ingeniero en Computación de <strong>22 años</strong>, egresado de la UAEM en el año 2022. Soy una
                 persona responsable, poseo conocimientos sobre las bases de datos, ya sea de análisis y manejo de las
                 Bases de Datos en SQL.</p>
-            <table class="table">
+                <div class="scroll">
+                    <table class="table">
                 <tbody>
                     <!-- Fecha de Nacimiento -->
                     <tr>
@@ -107,6 +105,8 @@
                     </tr>
                 </tbody>
             </table>
+                </div>
+            
             <a href="./doc/CV.pdf" download="CV Raul Gerónimo">Descargar CV</a>
         </div>
     </section>
@@ -260,7 +260,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Restaurante.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Restaurante.html" target="_blank">Restaurante</a></h4>
+                    <h4><a class="enlace" href="./Restaurante.html" target="_blank">Restaurante</a></h4>
                     <p>HTML y PHP</p>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Transmision Datos.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Transmision Datos.html" target="_blank">Transmision de
+                    <h4><a class="enlace" href="./Transmision Datos.html" target="_blank">Transmision de
                             Datos</a></h4>
                     <p>HTML y PHP</p>
                 </div>
@@ -281,7 +281,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Musica.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Musica.html" target="_blank">Musica</a></h4>
+                    <h4><a class="enlace" href="./Musica.html" target="_blank">Musica</a></h4>
                     <p>SPRING y JSP</p>
                 </div>
             </div>
@@ -290,7 +290,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Series.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Series.html" target="_blank">Series</a></h4>
+                    <h4><a class="enlace" href="./Series.html" target="_blank">Series</a></h4>
                     <p>SPRING y JSP</p>
                 </div>
             </div>
@@ -348,7 +348,7 @@
     </footer>
 
     <!-- Script -->
-    <script src="./script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
