@@ -340,7 +340,7 @@ h1 {
 
 .contenedor-skills .skill .barra .barra-progreso1 {
     background-color: #fff;
-    width: 70%;
+    width: 80%;
     height: 6px;
     animation: progreso1 2s forwards;
 }
@@ -354,7 +354,7 @@ h1 {
 
 .contenedor-skills .skill .barra .barra-progreso3 {
     background-color: #fff;
-    width: 70%;
+    width: 40%;
     height: 6px;
     animation: progreso3 2s forwards;
 }
@@ -372,7 +372,7 @@ h1 {
     }
 
     100% {
-        width: 70%;
+        width: 80%;
     }
 }
 
@@ -392,7 +392,7 @@ h1 {
     }
 
     100% {
-        width: 70%;
+        width: 40%;
     }
 }
 
@@ -425,7 +425,7 @@ h1 {
 
 #educacion .fila {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     max-width: 1150px;
     margin: 30px auto;
 }
