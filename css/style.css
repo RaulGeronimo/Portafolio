@@ -224,7 +224,7 @@ h1 {
     text-decoration: solid;
 }
 
-#sobremi .scroll {
+.scroll {
     display: flex;
     flex-wrap: no-wrap;
     overflow-x: auto;

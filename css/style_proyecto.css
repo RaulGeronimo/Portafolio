@@ -141,7 +141,7 @@ h1 {
     margin: auto;
     padding: 30px 15px;
     color: #111135;
-    display: flex;
+    
 }
 
 #sobremi .contenedor-foto {
@@ -249,9 +249,26 @@ h1 {
 
 #diagrama .contenedor-diagrama img {
     padding: 20px;
-    width: 50%;
+    /* width: 50%; */
+    width: 70vh;
     border-radius: 20px;
     background-color: #f3f3f3;
+}
+
+#diagrama .sobremi a {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    border-radius: 30px;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    margin-top: 30px;
+    transition: .5s;
+}
+
+#diagrama .sobremi a:hover {
+    background-color: #509cff;
+    color: #fff;
 }
 
 /* --------------------------------------- FOOTER --------------------------------------- */
