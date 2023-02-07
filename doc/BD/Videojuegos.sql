@@ -151,7 +151,7 @@ CREATE TABLE `pais` (
   `Nacionalidad` varchar(70) DEFAULT NULL,
   `Bandera` text DEFAULT NULL,
   PRIMARY KEY (`idPais`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,6 @@ CREATE TABLE `pais` (
 
 LOCK TABLES `pais` WRITE;
 /*!40000 ALTER TABLE `pais` DISABLE KEYS */;
-INSERT INTO `pais` VALUES (2,'Alemania','Europa','Aleman, Alemana','https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/640px-Flag_of_Germany.svg.png'),(3,'México','America','Mexicano, Mexicana','https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1280px-Flag_of_Mexico.svg.png'),(4,'Argentina','America','Argentino, Argentina','https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/1200px-Flag_of_Argentina.svg.png'),(5,'Australia','Oceania','Australiano, Australiana','https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg'),(6,'Austria','Europa','Austriaco, Austriaca','https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/640px-Flag_of_Austria.svg.png'),(7,'Bélgica','Europa','Belga','https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Belgium_%28civil%29.svg/1200px-Flag_of_Belgium_%28civil%29.svg.png'),(8,'Canadá','America','Canadiense','https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/800px-Flag_of_Canada_%28Pantone%29.svg.png'),(9,'China','Asia','Chino, China','https://genexus.blog/wp-content/uploads/2021/09/Bandera-China.jpeg'),(10,'Estados Unidos','America','Americano, Americana','https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png'),(11,'Francia','Europa','Frances, Francesa','https://m.media-amazon.com/images/I/41Dka5ibTAL.jpg'),(12,'Inglaterra','Europa','Inglés, Inglesa','https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_England.svg/1920px-Flag_of_England.svg.png'),(13,'Irlanda del Norte','Europa','Norirlandés, Norirlandesa','https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Flag_of_Northern_Ireland_%281953%E2%80%931972%29.svg/1920px-Flag_of_Northern_Ireland_%281953%E2%80%931972%29.svg.png'),(14,'Japón','Asia','Japones, Japonesa','https://banderasdelmundo.org/wp-content/uploads/2021/02/bandera-de-japon-actual-1.jpg'),(15,'Rusia','Europa','Ruso, Rusa','https://mf.b37mrtl.ru/rbthmedia/images/2021.06/article/60c0e15285600a1fb24d33f7.jpg'),(16,'Nueva Zelanda','Oceania','Neozelandés, Neozelandesa','https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg'),(17,'Suecia','Europa','Sueco, Sueca','https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/1200px-Flag_of_Sweden.svg.png');
 /*!40000 ALTER TABLE `pais` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,6 +176,7 @@ SET character_set_client = utf8;
   1 AS `Nombre`,
   1 AS `Genero`,
   1 AS `idFundador`,
+  1 AS `Fundador`,
   1 AS `Origen`,
   1 AS `Fundacion`,
   1 AS `Sitio` */;
@@ -195,7 +195,8 @@ SET character_set_client = utf8;
   1 AS `Nombre`,
   1 AS `Alias`,
   1 AS `FechaNacimiento`,
-  1 AS `idNacionalidad` */;
+  1 AS `idNacionalidad`,
+  1 AS `Nacionalidad` */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -210,6 +211,7 @@ SET character_set_client = utf8;
  1 AS `idDistribuidor`,
   1 AS `Nombre`,
   1 AS `idFundador`,
+  1 AS `Fundador`,
   1 AS `Fundacion`,
   1 AS `Sitio` */;
 SET character_set_client = @saved_cs_client;
@@ -229,8 +231,11 @@ SET character_set_client = utf8;
   1 AS `Modalidad`,
   1 AS `Plataforma`,
   1 AS `Lanzamiento`,
+  1 AS `Desarrollador`,
   1 AS `idDesarrollador`,
+  1 AS `Distribuidor`,
   1 AS `idDistribuidor`,
+  1 AS `Director`,
   1 AS `idDirector` */;
 SET character_set_client = @saved_cs_client;
 
@@ -247,7 +252,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_desarrollador` AS select `desarrollador`.`idDesarrollador` AS `idDesarrollador`,`desarrollador`.`Nombre` AS `Nombre`,`desarrollador`.`Genero` AS `Genero`,`desarrollador`.`idFundador` AS `idFundador`,`desarrollador`.`Origen` AS `Origen`,`desarrollador`.`Fundacion` AS `Fundacion`,`desarrollador`.`Sitio` AS `Sitio` from `desarrollador` */;
+/*!50001 VIEW `vista_desarrollador` AS select `desarrollador`.`idDesarrollador` AS `idDesarrollador`,`desarrollador`.`Nombre` AS `Nombre`,`desarrollador`.`Genero` AS `Genero`,`desarrollador`.`idFundador` AS `idFundador`,`director`.`Nombre` AS `Fundador`,`desarrollador`.`Origen` AS `Origen`,replace(date_format(`desarrollador`.`Fundacion`,'%d / %M / %Y'),substr(date_format(`desarrollador`.`Fundacion`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`desarrollador`.`Fundacion`,'%d / %M / %Y'),6,1))) AS `Fundacion`,`desarrollador`.`Sitio` AS `Sitio` from (`desarrollador` join `director` on(`desarrollador`.`idFundador` = `director`.`idDirector`)) order by `desarrollador`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -265,7 +270,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_director` AS select `director`.`idDirector` AS `idDirector`,`director`.`Nombre` AS `Nombre`,`director`.`Alias` AS `Alias`,`director`.`FechaNacimiento` AS `FechaNacimiento`,`director`.`idNacionalidad` AS `idNacionalidad` from `director` */;
+/*!50001 VIEW `vista_director` AS select `director`.`idDirector` AS `idDirector`,`director`.`Nombre` AS `Nombre`,`director`.`Alias` AS `Alias`,replace(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1))) AS `FechaNacimiento`,`director`.`idNacionalidad` AS `idNacionalidad`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Nacionalidad` from (`director` join `pais` on(`director`.`idNacionalidad` = `pais`.`idPais`)) order by `director`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -283,7 +288,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_distribuidor` AS select `distribuidor`.`idDistribuidor` AS `idDistribuidor`,`distribuidor`.`Nombre` AS `Nombre`,`distribuidor`.`idFundador` AS `idFundador`,`distribuidor`.`Fundacion` AS `Fundacion`,`distribuidor`.`Sitio` AS `Sitio` from `distribuidor` */;
+/*!50001 VIEW `vista_distribuidor` AS select `distribuidor`.`idDistribuidor` AS `idDistribuidor`,`distribuidor`.`Nombre` AS `Nombre`,`distribuidor`.`idFundador` AS `idFundador`,`director`.`Nombre` AS `Fundador`,replace(date_format(`distribuidor`.`Fundacion`,'%d / %M / %Y'),substr(date_format(`distribuidor`.`Fundacion`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`distribuidor`.`Fundacion`,'%d / %M / %Y'),6,1))) AS `Fundacion`,`distribuidor`.`Sitio` AS `Sitio` from (`distribuidor` join `director` on(`distribuidor`.`idFundador` = `director`.`idDirector`)) order by `distribuidor`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -301,7 +306,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_juegos` AS select `juegos`.`idJuego` AS `idJuego`,`juegos`.`Nombre` AS `Nombre`,`juegos`.`Genero` AS `Genero`,`juegos`.`Modalidad` AS `Modalidad`,`juegos`.`Plataforma` AS `Plataforma`,`juegos`.`Lanzamiento` AS `Lanzamiento`,`juegos`.`idDesarrollador` AS `idDesarrollador`,`juegos`.`idDistribuidor` AS `idDistribuidor`,`juegos`.`idDirector` AS `idDirector` from `juegos` */;
+/*!50001 VIEW `vista_juegos` AS select `juegos`.`idJuego` AS `idJuego`,`juegos`.`Nombre` AS `Nombre`,`juegos`.`Genero` AS `Genero`,`juegos`.`Modalidad` AS `Modalidad`,`juegos`.`Plataforma` AS `Plataforma`,replace(date_format(`juegos`.`Lanzamiento`,'%d / %M / %Y'),substr(date_format(`juegos`.`Lanzamiento`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`juegos`.`Lanzamiento`,'%d / %M / %Y'),6,1))) AS `Lanzamiento`,`desarrollador`.`Nombre` AS `Desarrollador`,`juegos`.`idDesarrollador` AS `idDesarrollador`,`distribuidor`.`Nombre` AS `Distribuidor`,`juegos`.`idDistribuidor` AS `idDistribuidor`,`director`.`Nombre` AS `Director`,`juegos`.`idDirector` AS `idDirector` from (((`juegos` join `desarrollador` on(`juegos`.`idDesarrollador` = `desarrollador`.`idDesarrollador`)) join `distribuidor` on(`juegos`.`idDistribuidor` = `distribuidor`.`idDistribuidor`)) join `director` on(`juegos`.`idDirector` = `director`.`idDirector`)) order by `juegos`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -315,4 +320,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-05 18:34:43
+-- Dump completed on 2023-02-06 19:25:43
