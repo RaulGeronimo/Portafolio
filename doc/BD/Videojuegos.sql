@@ -195,6 +195,7 @@ SET character_set_client = utf8;
   1 AS `Nombre`,
   1 AS `Alias`,
   1 AS `FechaNacimiento`,
+  1 AS `Edad`,
   1 AS `idNacionalidad`,
   1 AS `Nacionalidad` */;
 SET character_set_client = @saved_cs_client;
@@ -270,7 +271,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_director` AS select `director`.`idDirector` AS `idDirector`,`director`.`Nombre` AS `Nombre`,`director`.`Alias` AS `Alias`,replace(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1))) AS `FechaNacimiento`,`director`.`idNacionalidad` AS `idNacionalidad`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Nacionalidad` from (`director` join `pais` on(`director`.`idNacionalidad` = `pais`.`idPais`)) order by `director`.`Nombre` */;
+/*!50001 VIEW `vista_director` AS select `director`.`idDirector` AS `idDirector`,`director`.`Nombre` AS `Nombre`,`director`.`Alias` AS `Alias`,replace(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1),ucase(substr(date_format(`director`.`FechaNacimiento`,'%d / %M / %Y'),6,1))) AS `FechaNacimiento`,timestampdiff(YEAR,`director`.`FechaNacimiento`,current_timestamp()) AS `Edad`,`director`.`idNacionalidad` AS `idNacionalidad`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Nacionalidad` from (`director` join `pais` on(`director`.`idNacionalidad` = `pais`.`idPais`)) order by `director`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -320,4 +321,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-06 19:25:43
+-- Dump completed on 2023-02-06 21:33:51
