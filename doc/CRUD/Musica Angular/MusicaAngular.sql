@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.4.27-MariaDB, for Win64 (AMD64)
+-- MariaDB dump 10.19  Distrib 10.10.2-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: MusicaAngular
 -- ------------------------------------------------------
--- Server version	10.4.27-MariaDB
+-- Server version	10.10.2-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `album` (
   KEY `idDisquera` (`idDisquera`),
   CONSTRAINT `album_ibfk_1` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `album_ibfk_2` FOREIGN KEY (`idDisquera`) REFERENCES `disquera` (`idDisquera`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `artista` (
   PRIMARY KEY (`idArtista`),
   KEY `idNacionalidad` (`idNacionalidad`),
   CONSTRAINT `artista_ibfk_1` FOREIGN KEY (`idNacionalidad`) REFERENCES `pais` (`idPais`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,18 +91,20 @@ DROP TABLE IF EXISTS `artista_grupo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `artista_grupo` (
+  `Codigo` int(11) NOT NULL AUTO_INCREMENT,
   `idArtista` int(11) DEFAULT NULL,
   `idGrupo` int(11) DEFAULT NULL,
   `FechaInicio` date DEFAULT NULL,
   `FechaFin` date DEFAULT NULL,
   `idInstrumento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`),
   KEY `idArtista` (`idArtista`),
   KEY `idGrupo` (`idGrupo`),
   KEY `idInstrumento` (`idInstrumento`),
   CONSTRAINT `artista_grupo_ibfk_1` FOREIGN KEY (`idArtista`) REFERENCES `artista` (`idArtista`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `artista_grupo_ibfk_2` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `artista_grupo_ibfk_3` FOREIGN KEY (`idInstrumento`) REFERENCES `instrumento` (`idInstrumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +131,7 @@ CREATE TABLE `canciones` (
   `Genero` varchar(50) DEFAULT NULL,
   `Idioma` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idCancion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,14 +151,16 @@ DROP TABLE IF EXISTS `canciones_album`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `canciones_album` (
+  `Codigo` int(11) NOT NULL AUTO_INCREMENT,
   `idAlbum` int(11) DEFAULT NULL,
   `idCancion` int(11) DEFAULT NULL,
   `Numero` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Codigo`),
   KEY `idAlbum` (`idAlbum`),
   KEY `idCancion` (`idCancion`),
   CONSTRAINT `canciones_album_ibfk_1` FOREIGN KEY (`idAlbum`) REFERENCES `album` (`idAlbum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `canciones_album_ibfk_2` FOREIGN KEY (`idCancion`) REFERENCES `canciones` (`idCancion`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +190,7 @@ CREATE TABLE `disquera` (
   PRIMARY KEY (`idDisquera`),
   KEY `idPais` (`idPais`),
   CONSTRAINT `disquera_ibfk_1` FOREIGN KEY (`idPais`) REFERENCES `pais` (`idPais`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +222,7 @@ CREATE TABLE `grupo` (
   `Idioma` varchar(50) DEFAULT NULL,
   `Logo` text DEFAULT NULL,
   PRIMARY KEY (`idGrupo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +247,7 @@ CREATE TABLE `instrumento` (
   `Descripcion` text DEFAULT NULL,
   `Foto` text DEFAULT NULL,
   PRIMARY KEY (`idInstrumento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,11 +269,11 @@ DROP TABLE IF EXISTS `pais`;
 CREATE TABLE `pais` (
   `idPais` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) DEFAULT NULL,
-  `Continente` varchar(50) DEFAULT NULL,
   `Nacionalidad` varchar(70) DEFAULT NULL,
+  `Continente` varchar(50) DEFAULT NULL,
   `Bandera` text DEFAULT NULL,
   PRIMARY KEY (`idPais`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,8 +608,7 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-11 22:33:20
-
+-- Dump completed on 2023-02-13 23:59:33
 /* PROCEDIMIENTOS */
 /* ------------------------------------ ALBUM POR GRUPO ------------------------------------------ */
 DELIMITER $$
