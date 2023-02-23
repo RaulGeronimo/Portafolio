@@ -490,7 +490,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_artista` AS select `artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,if(`artista`.`FechaNacimiento` >= `artista`.`FechaFinado`,'Fecha Invalida',timestampdiff(YEAR,`artista`.`FechaNacimiento`,ifnull(`artista`.`FechaFinado`,current_timestamp()))) AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`artista`.`Instrumentos` AS `Instrumentos`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto` from (`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) order by `artista`.`Nombre` */;
+/*!50001 VIEW `vista_artista` AS select `artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`artista`.`Instrumentos` AS `Instrumentos`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto` from (`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) order by `artista`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -612,41 +612,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-22  0:15:27
-
-/* ----------------------------------------------------------------------------- PROCEDIMIENTOS ALMACENADOS ----------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------ ARTISTA GRUPO ------------------------------------------------------------------ */
-DELIMITER $$
-CREATE PROCEDURE `obtener_integrantes`(IN idGrupoB INT)
-BEGIN
-SELECT * FROM Vista_GrupoIntegrantes WHERE idGrupo = idGrupoB;
-END$$
-
-DELIMITER ;
-
-/* ------------------------------------------------------------------- ALBUM GRUPO ------------------------------------------------------------------- */
-DELIMITER $$
-CREATE PROCEDURE `obtener_album`(IN idGrupoB INT)
-BEGIN
-SELECT * FROM Vista_Album WHERE idGrupo = idGrupoB;
-END$$
-
-DELIMITER ;
-
-/* ----------------------------------------------------------------- CANCIONES ALBUM ----------------------------------------------------------------- */
-DELIMITER $$
-CREATE PROCEDURE `obtener_cancionesAlbum`(IN idAlbumA INT)
-BEGIN
-SELECT * FROM Vista_CancionesAlbum WHERE idAlbum = idAlbumA ORDER BY Numero;
-END$$
-
-DELIMITER ;
-
-/* ----------------------------------------------------------------- CANCIONES GRUPO ----------------------------------------------------------------- */
-DELIMITER $$
-CREATE PROCEDURE `obtener_canciones`(IN idGrupoB INT)
-BEGIN
-SELECT * FROM Vista_CancionesGrupo WHERE idGrupo = idGrupoB;
-END$$
-
-DELIMITER ;
+-- Dump completed on 2023-02-22 23:41:08
