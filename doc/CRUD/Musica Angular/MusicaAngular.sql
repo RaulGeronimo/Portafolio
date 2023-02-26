@@ -28,7 +28,7 @@ CREATE TABLE `album` (
   `idDisquera` int(11) DEFAULT NULL,
   `Nombre` varchar(60) DEFAULT NULL,
   `Duracion` time DEFAULT NULL,
-  `Lanzamiento` varchar(50) DEFAULT NULL,
+  `Lanzamiento` date DEFAULT NULL,
   `Grabacion` varchar(200) DEFAULT NULL,
   `Genero` varchar(100) DEFAULT NULL,
   `Portada` text DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `artista` (
   `Nombre` varchar(70) DEFAULT NULL,
   `NombreArtistico` varchar(50) DEFAULT NULL,
   `Genero` char(1) DEFAULT NULL,
-  `FechaNacimiento` varchar(50) DEFAULT NULL,
+  `FechaNacimiento` date DEFAULT NULL,
   `FechaFinado` varchar(50) DEFAULT NULL,
   `Estatura` double DEFAULT NULL,
   `idNacionalidad` int(11) DEFAULT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `artista_grupo` (
   `Codigo` int(11) NOT NULL AUTO_INCREMENT,
   `idArtista` int(11) DEFAULT NULL,
   `idGrupo` int(11) DEFAULT NULL,
-  `FechaInicio` varchar(50) DEFAULT NULL,
+  `FechaInicio` date DEFAULT NULL,
   `FechaFin` varchar(50) DEFAULT NULL,
   `idInstrumento` int(11) DEFAULT NULL,
   PRIMARY KEY (`Codigo`),
@@ -127,7 +127,7 @@ CREATE TABLE `canciones` (
   `idCancion` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(70) DEFAULT NULL,
   `Duracion` time DEFAULT NULL,
-  `Publicacion` varchar(50) DEFAULT NULL,
+  `Publicacion` date DEFAULT NULL,
   `Genero` varchar(100) DEFAULT NULL,
   `Idioma` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idCancion`)
@@ -182,7 +182,7 @@ DROP TABLE IF EXISTS `disquera`;
 CREATE TABLE `disquera` (
   `idDisquera` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(60) DEFAULT NULL,
-  `Fundacion` varchar(50) DEFAULT NULL,
+  `Fundacion` date DEFAULT NULL,
   `Fundador` varchar(100) DEFAULT NULL,
   `Generos` varchar(100) DEFAULT NULL,
   `idPais` int(11) DEFAULT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE `grupo` (
   `Nombre` varchar(50) DEFAULT NULL,
   `Origen` varchar(200) DEFAULT NULL,
   `Genero` varchar(200) DEFAULT NULL,
-  `Inicio` varchar(50) DEFAULT NULL,
+  `Inicio` date DEFAULT NULL,
   `Fin` varchar(50) DEFAULT NULL,
   `Sellos` varchar(150) DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
@@ -598,7 +598,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_grupointegrantes` AS select `artista_grupo`.`Codigo` AS `Codigo`,`artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,if(`artista`.`FechaNacimiento` >= `artista`.`FechaFinado`,'Fecha Invalida',timestampdiff(YEAR,`artista`.`FechaNacimiento`,ifnull(`artista`.`FechaFinado`,current_timestamp()))) AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`instrumento`.`Nombre` AS `Instrumento`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto`,date_format(`artista_grupo`.`FechaInicio`,'%d / %M / %Y') AS `FechaInicio`,date_format(`artista_grupo`.`FechaFin`,'%d / %M / %Y') AS `FechaFin`,concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),if(`artista_grupo`.`FechaFin` is null,'Actualidad',year(`artista_grupo`.`FechaFin`))) AS `Periodo`,`grupo`.`idGrupo` AS `idGrupo`,`grupo`.`Nombre` AS `Grupo` from ((((`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) left join `artista_grupo` on(`artista`.`idArtista` = `artista_grupo`.`idArtista`)) left join `grupo` on(`grupo`.`idGrupo` = `artista_grupo`.`idGrupo`)) join `instrumento` on(`artista_grupo`.`idInstrumento` = `instrumento`.`idInstrumento`)) order by `artista`.`Nombre`,date_format(`artista_grupo`.`FechaInicio`,'%d / %M / %Y') desc */;
+/*!50001 VIEW `vista_grupointegrantes` AS select `artista_grupo`.`Codigo` AS `Codigo`,`artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`instrumento`.`Nombre` AS `Instrumento`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto`,date_format(`artista_grupo`.`FechaInicio`,'%d / %M / %Y') AS `FechaInicio`,date_format(`artista_grupo`.`FechaFin`,'%d / %M / %Y') AS `FechaFin`,case when `artista_grupo`.`FechaFin` is null or `artista_grupo`.`FechaFin` <= 0 then concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),'Actualidad') else concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),year(`artista_grupo`.`FechaFin`)) end AS `Periodo`,`grupo`.`idGrupo` AS `idGrupo`,`grupo`.`Nombre` AS `Grupo` from ((((`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) left join `artista_grupo` on(`artista`.`idArtista` = `artista_grupo`.`idArtista`)) left join `grupo` on(`grupo`.`idGrupo` = `artista_grupo`.`idGrupo`)) join `instrumento` on(`artista_grupo`.`idInstrumento` = `instrumento`.`idInstrumento`)) order by `artista`.`Nombre`,date_format(`artista_grupo`.`FechaInicio`,'%d / %M / %Y') desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -612,4 +612,41 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-22 23:41:08
+-- Dump completed on 2023-02-25 17:04:01
+
+/* ----------------------------------------------------------------------------- PROCEDIMIENTOS ALMACENADOS ----------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------ ARTISTA GRUPO ------------------------------------------------------------------ */
+DELIMITER $$
+CREATE PROCEDURE `obtener_integrantes`(IN idGrupoB INT)
+BEGIN
+SELECT * FROM Vista_GrupoIntegrantes WHERE idGrupo = idGrupoB;
+END$$
+
+DELIMITER ;
+
+/* ------------------------------------------------------------------- ALBUM GRUPO ------------------------------------------------------------------- */
+DELIMITER $$
+CREATE PROCEDURE `obtener_album`(IN idGrupoB INT)
+BEGIN
+SELECT * FROM Vista_Album WHERE idGrupo = idGrupoB;
+END$$
+
+DELIMITER ;
+
+/* ----------------------------------------------------------------- CANCIONES ALBUM ----------------------------------------------------------------- */
+DELIMITER $$
+CREATE PROCEDURE `obtener_cancionesAlbum`(IN idAlbumA INT)
+BEGIN
+SELECT * FROM Vista_CancionesAlbum WHERE idAlbum = idAlbumA ORDER BY Numero;
+END$$
+
+DELIMITER ;
+
+/* ----------------------------------------------------------------- CANCIONES GRUPO ----------------------------------------------------------------- */
+DELIMITER $$
+CREATE PROCEDURE `obtener_canciones`(IN idGrupoB INT)
+BEGIN
+SELECT * FROM Vista_CancionesGrupo WHERE idGrupo = idGrupoB;
+END$$
+
+DELIMITER ;
