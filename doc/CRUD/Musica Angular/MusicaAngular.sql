@@ -299,9 +299,11 @@ SET character_set_client = utf8;
   1 AS `Grupo`,
   1 AS `Disquera`,
   1 AS `Nombre`,
+  1 AS `Album`,
   1 AS `Canciones`,
   1 AS `Duracion`,
   1 AS `Lanzamiento`,
+  1 AS `FechaLanzamiento`,
   1 AS `Grabacion`,
   1 AS `Genero`,
   1 AS `Portada` */;
@@ -343,6 +345,7 @@ SET character_set_client = utf8;
   1 AS `Nombre`,
   1 AS `Duracion`,
   1 AS `Publicacion`,
+  1 AS `Cancion`,
   1 AS `Genero`,
   1 AS `Idioma` */;
 SET character_set_client = @saved_cs_client;
@@ -472,7 +475,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_album` AS select `album`.`idAlbum` AS `idAlbum`,`album`.`idGrupo` AS `idGrupo`,`grupo`.`Nombre` AS `Grupo`,`disquera`.`Nombre` AS `Disquera`,`album`.`Nombre` AS `Nombre`,count(`canciones_album`.`idCancion`) AS `Canciones`,if(date_format(`album`.`Duracion`,'%H') = '00',date_format(`album`.`Duracion`,'%i:%s'),date_format(`album`.`Duracion`,'%H:%i:%s')) AS `Duracion`,date_format(`album`.`Lanzamiento`,'%d / %M / %Y') AS `Lanzamiento`,`album`.`Grabacion` AS `Grabacion`,`album`.`Genero` AS `Genero`,`album`.`Portada` AS `Portada` from (((`album` join `grupo` on(`album`.`idGrupo` = `grupo`.`idGrupo`)) join `disquera` on(`album`.`idDisquera` = `disquera`.`idDisquera`)) left join `canciones_album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) group by `album`.`idAlbum` order by `album`.`Lanzamiento` */;
+/*!50001 VIEW `vista_album` AS select `album`.`idAlbum` AS `idAlbum`,`album`.`idGrupo` AS `idGrupo`,`grupo`.`Nombre` AS `Grupo`,`disquera`.`Nombre` AS `Disquera`,`album`.`Nombre` AS `Nombre`,concat_ws(' - ',`album`.`Nombre`,`grupo`.`Nombre`) AS `Album`,count(`canciones_album`.`idCancion`) AS `Canciones`,if(date_format(`album`.`Duracion`,'%H') = '00',date_format(`album`.`Duracion`,'%i:%s'),date_format(`album`.`Duracion`,'%H:%i:%s')) AS `Duracion`,date_format(`album`.`Lanzamiento`,'%d / %M / %Y') AS `Lanzamiento`,`album`.`Lanzamiento` AS `FechaLanzamiento`,`album`.`Grabacion` AS `Grabacion`,`album`.`Genero` AS `Genero`,`album`.`Portada` AS `Portada` from (((`album` join `grupo` on(`album`.`idGrupo` = `grupo`.`idGrupo`)) join `disquera` on(`album`.`idDisquera` = `disquera`.`idDisquera`)) left join `canciones_album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) group by `album`.`idAlbum` order by `album`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -508,7 +511,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_canciones` AS select `canciones`.`idCancion` AS `idCancion`,`canciones`.`Nombre` AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,`canciones`.`Genero` AS `Genero`,`canciones`.`Idioma` AS `Idioma` from `canciones` order by `canciones`.`Nombre` */;
+/*!50001 VIEW `vista_canciones` AS select `canciones`.`idCancion` AS `idCancion`,`canciones`.`Nombre` AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,concat_ws(' - ',`canciones`.`Nombre`,year(`canciones`.`Publicacion`)) AS `Cancion`,`canciones`.`Genero` AS `Genero`,`canciones`.`Idioma` AS `Idioma` from `canciones` order by `canciones`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -562,7 +565,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_disquera` AS select `disquera`.`idDisquera` AS `idDisquera`,`disquera`.`Nombre` AS `Nombre`,date_format(`disquera`.`Fundacion`,'%M / %Y') AS `Fundacion`,`disquera`.`Fundador` AS `Fundador`,`disquera`.`Generos` AS `Generos`,`pais`.`Nombre` AS `Pais`,`disquera`.`Logo` AS `Logo` from (`disquera` join `pais` on(`disquera`.`idPais` = `pais`.`idPais`)) */;
+/*!50001 VIEW `vista_disquera` AS select `disquera`.`idDisquera` AS `idDisquera`,`disquera`.`Nombre` AS `Nombre`,date_format(`disquera`.`Fundacion`,'%M / %Y') AS `Fundacion`,`disquera`.`Fundador` AS `Fundador`,`disquera`.`Generos` AS `Generos`,`pais`.`Nombre` AS `Pais`,`disquera`.`Logo` AS `Logo` from (`disquera` join `pais` on(`disquera`.`idPais` = `pais`.`idPais`)) order by `disquera`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -612,7 +615,7 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-25 17:04:01
+-- Dump completed on 2023-03-01 17:48:20
 
 /* ----------------------------------------------------------------------------- PROCEDIMIENTOS ALMACENADOS ----------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------ ARTISTA GRUPO ------------------------------------------------------------------ */
@@ -628,7 +631,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `obtener_album`(IN idGrupoB INT)
 BEGIN
-SELECT * FROM Vista_Album WHERE idGrupo = idGrupoB;
+SELECT * FROM Vista_Album WHERE idGrupo = idGrupoB ORDER BY FechaLanzamiento;
 END$$
 
 DELIMITER ;
