@@ -511,10 +511,10 @@ h1 {
 #portfolio .fila .proyecto img {
     width: 100%;
     height: 100%;
-    ;
     filter: grayscale(1);
     object-fit: cover;
     transition: .5s;
+    max-width: 344px;
 }
 
 #portfolio .fila .proyecto:hover img {
