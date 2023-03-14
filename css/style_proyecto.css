@@ -220,7 +220,7 @@ h1 {
     display: flex;
 }
 
-.contenedor-intro img {
+.contenedor-intro img, video {
     padding: 20px;
     width: 100%;
     border-radius: 20px;
