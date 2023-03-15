@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    margin-block-end: 50px;
+    padding: 30px 15px;
+}
+
+.video {
+    width: 100%;
+}
+
+.c-video {
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.c-video:hover .controls{
+    transform: translateY(0);
+}
+
+.controls {
+    margin-left: 20px;
+    display: flex;
+    position: absolute;
+    bottom: 28px;
+    width: 96.4%;
+    flex-wrap: wrap;
+    background: rgba(0, 0, 0, 0);
+    transform: translateY(96.4%) translateY(-5px);
+    transition: all .2s;
+}
+
+.buttons {
+    padding: 10px;
+}
+
+.buttons button {
+    background: none;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
+
+.buttons button::before {
+    content: '\f144';
+    font-family: 'Font Awesome 5 Free';
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    font-size: 28px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+.buttons button.play::before {
+    content: '\f144';
+}
+
+.buttons button.pause::before {
+    content: '\f28b';
+}
+
+.orange-bar{
+    height: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+}
+
+.orange-juice{
+    height: 10px;
+    background-color: #509cff;
+}
+
+@media screen and (max-width: 800px){
+    .orange-bar{
+        height: 10px;
+        top: 0;
+        left: 0;
+        width: 90%;
+        background: #000;
+    }
+}

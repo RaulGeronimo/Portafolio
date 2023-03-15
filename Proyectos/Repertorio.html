@@ -14,6 +14,8 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/style_proyecto.css">
+
+    <link rel="stylesheet" href="../css/video.css">
 </head>
 
 <body>
@@ -74,9 +76,23 @@
         <br>
         <div class="contenedor-intro">
             <!-- <img src="../img/Repertorio/inicio.png"> -->
-            <video src="../img/Repertorio/video.mp4" poster="../img/Repertorio/inicio.png" autoplay loop muted></video>
+            <video src="../img/Repertorio/video.mp4" poster="../img/Repertorio/inicio.png" autoplay loop muted controls></video>
         </div>
     </section>
+
+    <!-- <div class="container">
+        <div class="c-video">
+            <video autoplay loop class="video" src="../img/Repertorio/video.mp4"></video>
+            <div class="controls">
+                <div class="orange-bar">
+                    <div class="orange-juice"></div>
+                </div>
+                <div class="buttons">
+                    <button id="play-pause"></button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 
     <!-- DIAGRAMA -->
     <section id="diagrama">
@@ -198,6 +214,7 @@
 
     <!-- Script -->
     <script src="../js/scriptProyecto.js"></script>
+    <script src="../js/video.js"></script>
 </body>
 
 </html>
