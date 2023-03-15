@@ -15,6 +15,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/style_proyecto.css">
 
+    <!-- Video -->
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <!-- <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet"> -->
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
     <link rel="stylesheet" href="../css/video.css">
 </head>
 
@@ -76,23 +80,14 @@
         <br>
         <div class="contenedor-intro">
             <!-- <img src="../img/Repertorio/inicio.png"> -->
-            <video src="../img/Repertorio/video.mp4" poster="../img/Repertorio/inicio.png" autoplay loop muted controls></video>
+            <!-- <video src="../img/Repertorio/video.mp4" poster="../img/Repertorio/inicio.png" autoplay loop muted
+                controls></video> -->
+
+            <video class="my-video video-js vjs-custom-theme-forest" poster="../img/Repertorio/inicio.png" data-setup="{}" autoplay muted loop controls>
+                <source src="../img/Repertorio/video.mp4" type="video/mp4">
+            </video>
         </div>
     </section>
-
-    <!-- <div class="container">
-        <div class="c-video">
-            <video autoplay loop class="video" src="../img/Repertorio/video.mp4"></video>
-            <div class="controls">
-                <div class="orange-bar">
-                    <div class="orange-juice"></div>
-                </div>
-                <div class="buttons">
-                    <button id="play-pause"></button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <!-- DIAGRAMA -->
     <section id="diagrama">
@@ -214,7 +209,6 @@
 
     <!-- Script -->
     <script src="../js/scriptProyecto.js"></script>
-    <script src="../js/video.js"></script>
 </body>
 
 </html>
