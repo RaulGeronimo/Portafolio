@@ -299,16 +299,13 @@ SET character_set_client = utf8;
 /*!50001 CREATE VIEW `vista_album` AS SELECT
  1 AS `idAlbum`,
   1 AS `idGrupo`,
-  1 AS `idDisquera`,
-  1 AS `Grupo`,
-  1 AS `Disquera`,
   1 AS `Nombre`,
-  1 AS `Album`,
+  1 AS `Grupo`,
   1 AS `Canciones`,
-  1 AS `DuracionF`,
+  1 AS `Disquera`,
   1 AS `Duracion`,
-  1 AS `Lanzamiento`,
   1 AS `FechaLanzamiento`,
+  1 AS `Lanzamiento`,
   1 AS `Grabacion`,
   1 AS `Genero`,
   1 AS `Portada` */;
@@ -350,7 +347,6 @@ SET character_set_client = utf8;
   1 AS `Nombre`,
   1 AS `Duracion`,
   1 AS `Publicacion`,
-  1 AS `Cancion`,
   1 AS `Genero`,
   1 AS `Interpretacion`,
   1 AS `Grupo` */;
@@ -430,9 +426,6 @@ SET character_set_client = utf8;
   1 AS `Origen`,
   1 AS `Genero`,
   1 AS `FechaInicio`,
-  1 AS `FechaFin`,
-  1 AS `Inicio`,
-  1 AS `Fin`,
   1 AS `Sellos`,
   1 AS `Estado`,
   1 AS `SitioWeb`,
@@ -451,21 +444,17 @@ SET character_set_client = utf8;
 /*!50001 CREATE VIEW `vista_grupointegrantes` AS SELECT
  1 AS `Codigo`,
   1 AS `idArtista`,
-  1 AS `Nombre`,
+  1 AS `idGrupo`,
   1 AS `NombreArtistico`,
+  1 AS `Nombre`,
   1 AS `Genero`,
   1 AS `FechaNacimiento`,
-  1 AS `FechaFinado`,
-  1 AS `Edad`,
-  1 AS `Estatura`,
-  1 AS `Pais`,
   1 AS `Instrumento`,
+  1 AS `Edad`,
+  1 AS `Pais`,
   1 AS `TipoVoz`,
   1 AS `Foto`,
-  1 AS `FechaInicio`,
-  1 AS `FechaFin`,
   1 AS `Periodo`,
-  1 AS `idGrupo`,
   1 AS `Grupo` */;
 SET character_set_client = @saved_cs_client;
 
@@ -482,7 +471,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_album` AS select `album`.`idAlbum` AS `idAlbum`,`album`.`idGrupo` AS `idGrupo`,`album`.`idDisquera` AS `idDisquera`,`grupo`.`Nombre` AS `Grupo`,`disquera`.`Nombre` AS `Disquera`,`album`.`Nombre` AS `Nombre`,concat_ws(' - ',`album`.`Nombre`,`grupo`.`Nombre`) AS `Album`,count(`canciones_album`.`idCancion`) AS `Canciones`,if(date_format(`album`.`Duracion`,'%H') = '00',date_format(`album`.`Duracion`,'%i:%s'),date_format(`album`.`Duracion`,'%H:%i:%s')) AS `DuracionF`,`album`.`Duracion` AS `Duracion`,date_format(`album`.`Lanzamiento`,'%Y-%m-%d') AS `Lanzamiento`,date_format(`album`.`Lanzamiento`,'%d / %M / %Y') AS `FechaLanzamiento`,`album`.`Grabacion` AS `Grabacion`,`album`.`Genero` AS `Genero`,`album`.`Portada` AS `Portada` from (((`album` join `grupo` on(`album`.`idGrupo` = `grupo`.`idGrupo`)) join `disquera` on(`album`.`idDisquera` = `disquera`.`idDisquera`)) left join `canciones_album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) group by `album`.`idAlbum` order by `album`.`Nombre` */;
+/*!50001 VIEW `vista_album` AS select `album`.`idAlbum` AS `idAlbum`,`grupo`.`idGrupo` AS `idGrupo`,`album`.`Nombre` AS `Nombre`,`grupo`.`Nombre` AS `Grupo`,count(`canciones_album`.`idCancion`) AS `Canciones`,`disquera`.`Nombre` AS `Disquera`,if(date_format(`album`.`Duracion`,'%H') = '00',date_format(`album`.`Duracion`,'%i:%s'),date_format(`album`.`Duracion`,'%H:%i:%s')) AS `Duracion`,date_format(`album`.`Lanzamiento`,'%d / %M / %Y') AS `FechaLanzamiento`,`album`.`Lanzamiento` AS `Lanzamiento`,`album`.`Grabacion` AS `Grabacion`,`Mayuscula`(`album`.`Genero`) AS `Genero`,`album`.`Portada` AS `Portada` from (((`album` join `grupo` on(`album`.`idGrupo` = `grupo`.`idGrupo`)) join `disquera` on(`album`.`idDisquera` = `disquera`.`idDisquera`)) left join `canciones_album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) group by `album`.`idAlbum` order by `album`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -500,7 +489,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_artista` AS select `artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`artista`.`Instrumentos` AS `Instrumentos`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto` from (`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) order by `artista`.`Nombre` */;
+/*!50001 VIEW `vista_artista` AS select `artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`Mayuscula`(`artista`.`Instrumentos`) AS `Instrumentos`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto` from (`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) order by `artista`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -518,7 +507,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_canciones` AS select `canciones`.`idCancion` AS `idCancion`,case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' - ',`grupo`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else concat_ws(' - ',`canciones`.`Nombre`,`grupo`.`Nombre`) end AS `Cancion`,`canciones`.`Genero` AS `Genero`,`canciones`.`Interpretacion` AS `Interpretacion`,`grupo`.`Nombre` AS `Grupo` from (`canciones` left join `grupo` on(`grupo`.`idGrupo` = `canciones`.`idGrupo`)) order by case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end */;
+/*!50001 VIEW `vista_canciones` AS select `canciones`.`idCancion` AS `idCancion`,case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,`Mayuscula`(`canciones`.`Genero`) AS `Genero`,`canciones`.`Interpretacion` AS `Interpretacion`,`grupo`.`Nombre` AS `Grupo` from (`canciones` left join `grupo` on(`grupo`.`idGrupo` = `canciones`.`idGrupo`)) order by case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -536,7 +525,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_cancionesalbum` AS select `canciones_album`.`Codigo` AS `Codigo`,`canciones`.`idCancion` AS `idCancion`,`album`.`idAlbum` AS `idAlbum`,`album`.`Nombre` AS `Album`,`canciones_album`.`Numero` AS `Numero`,case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,`canciones`.`Genero` AS `Genero` from ((`canciones` join `canciones_album` on(`canciones`.`idCancion` = `canciones_album`.`idCancion`)) join `album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) order by case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end */;
+/*!50001 VIEW `vista_cancionesalbum` AS select `canciones_album`.`Codigo` AS `Codigo`,`canciones`.`idCancion` AS `idCancion`,`album`.`idAlbum` AS `idAlbum`,`album`.`Nombre` AS `Album`,`canciones_album`.`Numero` AS `Numero`,case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end AS `Nombre`,date_format(`canciones`.`Duracion`,'%i:%s') AS `Duracion`,date_format(`canciones`.`Publicacion`,'%d / %M / %Y') AS `Publicacion`,`Mayuscula`(`canciones`.`Genero`) AS `Genero` from ((`canciones` left join `canciones_album` on(`canciones`.`idCancion` = `canciones_album`.`idCancion`)) left join `album` on(`album`.`idAlbum` = `canciones_album`.`idAlbum`)) order by case when `canciones`.`Interpretacion` <> 'Original' then concat(`canciones`.`Nombre`,' ( ',`canciones`.`Interpretacion`,' ) ') else `canciones`.`Nombre` end */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -590,7 +579,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_grupo` AS select `g`.`idGrupo` AS `idGrupo`,`g`.`Nombre` AS `Nombre`,sum(`g`.`Albumes`) AS `Albumes`,sum(`g`.`Cancion`) AS `Cancion`,`g`.`Origen` AS `Origen`,`g`.`Genero` AS `Genero`,date_format(`g`.`Inicio`,'%Y') AS `FechaInicio`,date_format(`g`.`Fin`,'%Y') AS `FechaFin`,date_format(`g`.`Inicio`,'%Y-%m-%d') AS `Inicio`,`g`.`Fin` AS `Fin`,`g`.`Sellos` AS `Sellos`,`g`.`Estado` AS `Estado`,`g`.`SitioWeb` AS `SitioWeb`,`g`.`Idioma` AS `Idioma`,`g`.`Logo` AS `Logo` from (select `a`.`idGrupo` AS `idGrupo`,`a`.`Nombre` AS `Nombre`,count(`c2`.`idAlbum`) AS `Albumes`,0 AS `Cancion`,`a`.`Origen` AS `Origen`,`a`.`Genero` AS `Genero`,date_format(`a`.`Inicio`,'%Y') AS `FechaInicio`,date_format(`a`.`Fin`,'%Y') AS `FechaFin`,date_format(`a`.`Inicio`,'%Y-%m-%d') AS `Inicio`,`a`.`Fin` AS `Fin`,`a`.`Sellos` AS `Sellos`,`a`.`Estado` AS `Estado`,`a`.`SitioWeb` AS `SitioWeb`,`a`.`Idioma` AS `Idioma`,`a`.`Logo` AS `Logo` from (`grupo` `a` left join `album` `c2` on(`a`.`idGrupo` = `c2`.`idGrupo`)) group by `a`.`idGrupo` union all select `b`.`idGrupo` AS `idGrupo`,`b`.`Nombre` AS `Nombre`,0 AS `Albumes`,count(`c1`.`idCancion`) AS `Cancion`,`b`.`Origen` AS `Origen`,`b`.`Genero` AS `Genero`,date_format(`b`.`Inicio`,'%Y') AS `FechaInicio`,date_format(`b`.`Fin`,'%Y') AS `FechaFin`,date_format(`b`.`Inicio`,'%Y-%m-%d') AS `Inicio`,`b`.`Fin` AS `Fin`,`b`.`Sellos` AS `Sellos`,`b`.`Estado` AS `Estado`,`b`.`SitioWeb` AS `SitioWeb`,`b`.`Idioma` AS `Idioma`,`b`.`Logo` AS `Logo` from (`grupo` `b` left join `canciones` `c1` on(`b`.`idGrupo` = `c1`.`idGrupo`)) group by `b`.`idGrupo`) `g` group by `g`.`idGrupo` order by `g`.`Nombre` */;
+/*!50001 VIEW `vista_grupo` AS select `g`.`idGrupo` AS `idGrupo`,`g`.`Nombre` AS `Nombre`,sum(`g`.`Albumes`) AS `Albumes`,sum(`g`.`Cancion`) AS `Cancion`,`g`.`Origen` AS `Origen`,`Mayuscula`(`g`.`Genero`) AS `Genero`,`g`.`FechaInicio` AS `FechaInicio`,`g`.`Sellos` AS `Sellos`,`g`.`Estado` AS `Estado`,`g`.`SitioWeb` AS `SitioWeb`,`g`.`Idioma` AS `Idioma`,`g`.`Logo` AS `Logo` from (select `a`.`idGrupo` AS `idGrupo`,`a`.`Nombre` AS `Nombre`,count(`c2`.`idAlbum`) AS `Albumes`,0 AS `Cancion`,`a`.`Origen` AS `Origen`,`a`.`Genero` AS `Genero`,date_format(`a`.`Inicio`,'%Y') AS `FechaInicio`,`a`.`Sellos` AS `Sellos`,`a`.`Estado` AS `Estado`,`a`.`SitioWeb` AS `SitioWeb`,`a`.`Idioma` AS `Idioma`,`a`.`Logo` AS `Logo` from (`grupo` `a` left join `album` `c2` on(`a`.`idGrupo` = `c2`.`idGrupo`)) group by `a`.`idGrupo` union all select `b`.`idGrupo` AS `idGrupo`,`b`.`Nombre` AS `Nombre`,0 AS `Albumes`,count(`c1`.`idCancion`) AS `Cancion`,`b`.`Origen` AS `Origen`,`b`.`Genero` AS `Genero`,date_format(`b`.`Inicio`,'%Y') AS `FechaInicio`,`b`.`Sellos` AS `Sellos`,`b`.`Estado` AS `Estado`,`b`.`SitioWeb` AS `SitioWeb`,`b`.`Idioma` AS `Idioma`,`b`.`Logo` AS `Logo` from (`grupo` `b` left join `canciones` `c1` on(`b`.`idGrupo` = `c1`.`idGrupo`)) group by `b`.`idGrupo`) `g` group by `g`.`idGrupo` order by `g`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -608,7 +597,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `vista_grupointegrantes` AS select `artista_grupo`.`Codigo` AS `Codigo`,`artista`.`idArtista` AS `idArtista`,`artista`.`Nombre` AS `Nombre`,`artista`.`NombreArtistico` AS `NombreArtistico`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,date_format(`artista`.`FechaFinado`,'%d / %M / %Y') AS `FechaFinado`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,format(`artista`.`Estatura`,2) AS `Estatura`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`instrumento`.`Nombre` AS `Instrumento`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto`,date_format(`artista_grupo`.`FechaInicio`,'%Y') AS `FechaInicio`,date_format(`artista_grupo`.`FechaFin`,'%Y') AS `FechaFin`,case when `artista_grupo`.`FechaFin` is null or `artista_grupo`.`FechaFin` <= 0 then concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),'Actualidad') else concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),year(`artista_grupo`.`FechaFin`)) end AS `Periodo`,`grupo`.`idGrupo` AS `idGrupo`,`grupo`.`Nombre` AS `Grupo` from ((((`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) left join `artista_grupo` on(`artista`.`idArtista` = `artista_grupo`.`idArtista`)) left join `grupo` on(`grupo`.`idGrupo` = `artista_grupo`.`idGrupo`)) join `instrumento` on(`artista_grupo`.`idInstrumento` = `instrumento`.`idInstrumento`)) order by `artista`.`Nombre`,date_format(`artista_grupo`.`FechaInicio`,'%Y') desc */;
+/*!50001 VIEW `vista_grupointegrantes` AS select `artista_grupo`.`Codigo` AS `Codigo`,`artista`.`idArtista` AS `idArtista`,`grupo`.`idGrupo` AS `idGrupo`,`artista`.`NombreArtistico` AS `NombreArtistico`,`artista`.`Nombre` AS `Nombre`,if(`artista`.`Genero` = 'H','Hombre','Mujer') AS `Genero`,date_format(`artista`.`FechaNacimiento`,'%d / %M / %Y') AS `FechaNacimiento`,`instrumento`.`Nombre` AS `Instrumento`,case when `artista`.`FechaFinado` is null or `artista`.`FechaFinado` <= 0 then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,current_timestamp()),'años') when `artista`.`FechaFinado` <= 0 then 'Fecha Invalida' when `artista`.`FechaNacimiento` <= `artista`.`FechaFinado` then concat_ws(' ',timestampdiff(YEAR,`artista`.`FechaNacimiento`,`artista`.`FechaFinado`),'años') else 'Fecha Invalida' end AS `Edad`,concat_ws(' - ',`pais`.`Nombre`,`pais`.`Nacionalidad`) AS `Pais`,`artista`.`TipoVoz` AS `TipoVoz`,`artista`.`Foto` AS `Foto`,case when `artista_grupo`.`FechaFin` is null or `artista_grupo`.`FechaFin` <= 0 then concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),'Actualidad') else concat_ws(' - ',year(`artista_grupo`.`FechaInicio`),year(`artista_grupo`.`FechaFin`)) end AS `Periodo`,`grupo`.`Nombre` AS `Grupo` from ((((`artista` join `pais` on(`artista`.`idNacionalidad` = `pais`.`idPais`)) left join `artista_grupo` on(`artista`.`idArtista` = `artista_grupo`.`idArtista`)) left join `grupo` on(`grupo`.`idGrupo` = `artista_grupo`.`idGrupo`)) join `instrumento` on(`artista_grupo`.`idInstrumento` = `instrumento`.`idInstrumento`)) order by `artista`.`Nombre`,`artista_grupo`.`FechaInicio` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -622,10 +611,279 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-12 22:43:41
+-- Dump completed on 2023-03-14 18:00:36
+
+/* ------------------------------------------------------------------------------------- FUNCIONES ------------------------------------------------------------------------------------- */
+DROP function IF EXISTS `Mayuscula`;
+DELIMITER $$
+CREATE FUNCTION `Mayuscula` (cadena TEXT)
+RETURNS TEXT
+BEGIN
+	DECLARE pos INT DEFAULT 0; 
+	DECLARE tmp VARCHAR(100) 
+	DEFAULT ''; 
+	DECLARE result VARCHAR(100) DEFAULT ''; 
+	REPEAT SET pos = LOCATE(' ', cadena); 
+	 IF pos = 0 THEN SET pos = CHAR_LENGTH(cadena); 
+	 END IF; 
+	 SET tmp = LEFT(cadena,pos); 
+	 IF CHAR_LENGTH(tmp) < 4 THEN SET result = CONCAT(result, tmp); 
+	 ELSE SET result = CONCAT(result, UPPER(LEFT(tmp,1)),SUBSTR(tmp,2)); 
+	 END IF; 
+	 SET cadena = RIGHT(cadena,CHAR_LENGTH(cadena)-pos); 
+	UNTIL CHAR_LENGTH(cadena) = 0 END REPEAT; 
+RETURN result; 
+END$$
+
+DELIMITER ;
+
+/* --------------------------------------------------------------------------------------- VISTAS --------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------- ARTISTA --------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_Artista AS
+SELECT
+Artista.idArtista,
+Artista.Nombre,
+Artista.NombreArtistico,
+IF (Artista.Genero = 'H', 'Hombre', 'Mujer') AS Genero,
+DATE_FORMAT(Artista.FechaNacimiento, "%d / %M / %Y") AS FechaNacimiento,
+DATE_FORMAT(Artista.FechaFinado, "%d / %M / %Y") AS FechaFinado,
+CASE
+WHEN Artista.FechaFinado IS NULL OR Artista.FechaFinado <= 0 THEN CONCAT_WS(' ', TIMESTAMPDIFF(YEAR, Artista.FechaNacimiento, NOW()), 'años')
+WHEN Artista.FechaFinado <= 0 THEN 'Fecha Invalida'
+WHEN Artista.FechaNacimiento <= Artista.FechaFinado THEN CONCAT_WS(' ', TIMESTAMPDIFF(YEAR, Artista.FechaNacimiento, Artista.FechaFinado), 'años')
+ELSE 'Fecha Invalida'
+END AS Edad,
+FORMAT(Artista.Estatura, 2) AS Estatura,
+CONCAT_WS(' - ', Pais.Nombre, Pais.Nacionalidad) AS Pais,
+/*Artista.Instrumentos,*/
+Mayuscula(Artista.Instrumentos) AS Instrumentos,
+Artista.TipoVoz,
+Artista.Foto
+FROM Artista
+INNER JOIN Pais
+ON Artista.idNacionalidad = Pais.idPais
+ORDER BY Nombre;
+
+/* ---------------------------------------------------------------------- GRUPO ---------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_Grupo AS
+SELECT 
+G.idGrupo,
+G.Nombre,
+SUM(G.Albumes) AS Albumes,
+SUM(G.Cancion) AS Cancion,
+G.Origen,
+Mayuscula(G.Genero) AS Genero,
+G.FechaInicio,
+G.Sellos,
+G.Estado,
+G.SitioWeb,
+G.Idioma,
+G.Logo
+FROM(
+    SELECT 
+    a.idGrupo,
+    a.Nombre,
+    COUNT(idAlbum) AS Albumes,
+    0 AS Cancion,
+    a.Origen,
+    a.Genero,
+    DATE_FORMAT(a.Inicio, "%Y") AS FechaInicio,
+    a.Sellos,
+    a.Estado,
+    a.SitioWeb,
+    a.Idioma,
+    a.Logo
+    FROM Grupo AS a
+    LEFT JOIN Album as c2
+    ON a.idGrupo = c2.idGrupo
+    GROUP BY (a.idGrupo)
+
+    UNION ALL
+
+    SELECT
+    b.idGrupo,
+    b.Nombre,
+    0 AS Albumes,
+    COUNT(idCancion) AS Cancion,
+    b.Origen,
+    b.Genero,
+    DATE_FORMAT(b.Inicio, "%Y") AS FechaInicio,
+    b.Sellos,
+    b.Estado,
+    b.SitioWeb,
+    b.Idioma,
+    b.Logo
+    FROM Grupo AS b
+    LEFT JOIN Canciones AS c1
+    ON b.idGrupo = c1.idGrupo
+    GROUP BY (b.idGrupo)
+) AS G 
+GROUP BY G.idGrupo
+ORDER BY (G.Nombre);
+
+/* ------------------------------------------------------------------ ARTISTA GRUPO ------------------------------------------------------------------ */
+CREATE OR REPLACE VIEW
+Vista_GrupoIntegrantes AS
+SELECT
+Artista_Grupo.Codigo,
+Artista.idArtista,
+Grupo.idGrupo,
+Artista.NombreArtistico,
+Artista.Nombre,
+IF (Artista.Genero = 'H', 'Hombre', 'Mujer') AS Genero,
+DATE_FORMAT(Artista.FechaNacimiento, "%d / %M / %Y") AS FechaNacimiento,
+Instrumento.Nombre AS Instrumento,
+CASE
+WHEN Artista.FechaFinado IS NULL OR Artista.FechaFinado <= 0 THEN CONCAT_WS(' ', TIMESTAMPDIFF(YEAR, Artista.FechaNacimiento, NOW()), 'años')
+WHEN Artista.FechaFinado <= 0 THEN 'Fecha Invalida'
+WHEN Artista.FechaNacimiento <= Artista.FechaFinado THEN CONCAT_WS(' ', TIMESTAMPDIFF(YEAR, Artista.FechaNacimiento, Artista.FechaFinado), 'años')
+ELSE 'Fecha Invalida'
+END AS Edad,
+CONCAT_WS(' - ', Pais.Nombre, Pais.Nacionalidad) AS Pais,
+Artista.TipoVoz,
+Artista.Foto,
+CASE
+WHEN Artista_Grupo.FechaFin IS NULL OR Artista_Grupo.FechaFin <= 0 THEN CONCAT_WS(' - ', YEAR(Artista_Grupo.FechaInicio), 'Actualidad')
+ELSE CONCAT_WS(' - ', YEAR(Artista_Grupo.FechaInicio), YEAR(Artista_Grupo.FechaFin))
+END AS Periodo,
+Grupo.Nombre AS Grupo
+
+FROM Artista
+INNER JOIN Pais
+ON Artista.idNacionalidad = Pais.idPais
+
+LEFT JOIN Artista_Grupo
+ON Artista.idArtista = Artista_Grupo.idArtista
+
+LEFT JOIN Grupo
+ON Grupo.idGrupo = Artista_Grupo.idGrupo
+
+INNER JOIN Instrumento
+ON Artista_Grupo.idInstrumento = Instrumento.idInstrumento
+
+ORDER BY Artista.Nombre, FechaInicio DESC;
+
+/* --------------------------------------------------------------------- DISQUERA --------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_Disquera AS
+SELECT
+Disquera.idDisquera,
+Disquera.Nombre,
+DATE_FORMAT(Disquera.Fundacion, "%M / %Y") AS Fundacion,
+Disquera.Fundador,
+Disquera.Generos,
+Pais.Nombre AS Pais,
+Disquera.Logo
+FROM Disquera
+INNER JOIN Pais
+ON Disquera.idPais = Pais.idPais
+ORDER BY Nombre;
+
+/* ---------------------------------------------------------------------- ALBUM ---------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_Album AS
+SELECT
+Album.idAlbum,
+Grupo.idGrupo,
+Album.Nombre AS Nombre,
+Grupo.Nombre AS Grupo,
+COUNT(Canciones_Album.idCancion) AS Canciones,
+Disquera.Nombre AS Disquera,
+IF(DATE_FORMAT(Album.Duracion, "%H") = '00', DATE_FORMAT(Album.Duracion, "%i:%s"), DATE_FORMAT(Album.Duracion, "%H:%i:%s")) AS Duracion,
+DATE_FORMAT(Album.Lanzamiento, "%d / %M / %Y") AS FechaLanzamiento,
+Album.Lanzamiento,
+Album.Grabacion,
+Mayuscula(Album.Genero) AS Genero,
+Album.Portada
+
+FROM Album
+INNER JOIN Grupo
+ON Album.idGrupo = Grupo.idGrupo
+
+INNER JOIN Disquera
+ON Album.idDisquera = Disquera.idDisquera
+
+LEFT JOIN Canciones_Album
+ON Album.idAlbum = Canciones_Album.idAlbum
+
+GROUP BY(Album.idAlbum)
+ORDER BY (Album.Nombre);
+
+/* -------------------------------------------------------------------- CANCIONES -------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_Canciones AS
+SELECT
+Canciones.idCancion,
+/* Canciones.Nombre, */
+CASE
+WHEN Canciones.Interpretacion <> 'Original' THEN CONCAT(Canciones.Nombre, ' ( ', Canciones.Interpretacion, ' ) ')
+ELSE Canciones.Nombre
+END AS Nombre,
+DATE_FORMAT(Canciones.Duracion, "%i:%s") AS Duracion,
+DATE_FORMAT(Canciones.Publicacion, "%d / %M / %Y") AS Publicacion,
+Mayuscula(Canciones.Genero) AS Genero,
+Canciones.Interpretacion,
+Grupo.Nombre AS Grupo
+FROM Canciones
+LEFT JOIN Grupo
+ON Grupo.idGrupo = Canciones.idGrupo
+ORDER BY Nombre;
+
+/* ----------------------------------------------------------------- CANCIONES ALBUM ----------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_CancionesAlbum AS
+SELECT
+Canciones_Album.Codigo,
+Canciones.idCancion,
+Album.idAlbum,
+Album.Nombre AS Album,
+Canciones_Album.Numero,
+/* Canciones.Nombre, */
+CASE
+WHEN Canciones.Interpretacion <> 'Original' THEN CONCAT(Canciones.Nombre, ' ( ', Canciones.Interpretacion, ' ) ')
+ELSE Canciones.Nombre
+END AS Nombre,
+DATE_FORMAT(Canciones.Duracion, "%i:%s") AS Duracion,
+DATE_FORMAT(Publicacion, "%d / %M / %Y") AS Publicacion,
+Mayuscula(Canciones.Genero) AS Genero
+FROM Canciones
+LEFT JOIN Canciones_Album
+ON Canciones.idCancion = Canciones_Album.idCancion
+LEFT JOIN Album
+ON Album.idAlbum = Canciones_Album.idAlbum
+ORDER BY Nombre;
+
+/* ----------------------------------------------------------------- CANCIONES GRUPO ----------------------------------------------------------------- */
+CREATE OR REPLACE VIEW
+Vista_CancionesGrupo AS
+SELECT
+Canciones.idCancion,
+Grupo.idGrupo,
+Grupo.Nombre AS Grupo,
+CASE
+WHEN Canciones.Interpretacion <> 'Original' THEN CONCAT(Canciones.Nombre, ' ( ', Canciones.Interpretacion, ' ) ')
+ELSE Canciones.Nombre
+END AS Nombre,
+GROUP_CONCAT(album.Nombre separator ', ') AS Albums,
+DATE_FORMAT(Canciones.Duracion, "%i:%s") AS Duracion,
+DATE_FORMAT(Canciones.Publicacion, "%Y") AS Publicacion,
+Canciones.Genero,
+Canciones.Interpretacion
+FROM Canciones
+LEFT JOIN Grupo
+ON Grupo.idGrupo = Canciones.idGrupo
+LEFT JOIN canciones_album
+ON canciones.idCancion = canciones_album.idCancion
+LEFT JOIN album
+ON album.idalbum = canciones_album.idalbum
+GROUP BY idCancion
+ORDER BY Nombre, Album.Nombre;
 
 /* ----------------------------------------------------------------------------- PROCEDIMIENTOS ALMACENADOS ----------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------ ARTISTA GRUPO ------------------------------------------------------------------ */
+DROP procedure IF EXISTS `obtener_integrantes`;
 DELIMITER $$
 CREATE PROCEDURE `obtener_integrantes`(IN idGrupoB INT)
 BEGIN
@@ -635,38 +893,37 @@ END$$
 DELIMITER ;
 
 /* ------------------------------------------------------------------- ALBUM GRUPO ------------------------------------------------------------------- */
+DROP procedure IF EXISTS `obtener_album`;
 DELIMITER $$
 CREATE PROCEDURE `obtener_album`(IN idGrupoB INT)
 BEGIN
-SELECT * FROM Vista_Album WHERE idGrupo = idGrupoB ORDER BY Lanzamiento;
+SELECT idAlbum, idGrupo, Nombre, Grabacion, Canciones, Duracion, FechaLanzamiento, Disquera, Portada FROM Vista_Album WHERE idGrupo = idGrupoB ORDER BY Lanzamiento;
 END$$
 
 DELIMITER ;
 
 /* ----------------------------------------------------------------- CANCIONES ALBUM ----------------------------------------------------------------- */
+DROP procedure IF EXISTS `obtener_cancionesAlbum`;
 DELIMITER $$
 CREATE PROCEDURE `obtener_cancionesAlbum`(IN idAlbumA INT)
 BEGIN
-    SELECT 
-        Codigo, 
-        idCancion, 
-        idAlbum, 
-        Album, 
-        Numero, 
-        GROUP_CONCAT(Nombre separator ' / ') AS Nombre,
-        DATE_FORMAT(sec_to_time(SUM(time_to_sec(Duracion))), "%H:%i")  AS Duracion,
-        Publicacion,
-        Genero
-    FROM Vista_CancionesAlbum WHERE idAlbum = idAlbumA GROUP BY Numero ORDER BY Numero;
+SELECT 
+	Codigo,   
+	Numero, 
+    GROUP_CONCAT(Nombre separator ' / ') AS Nombre,
+    DATE_FORMAT(sec_to_time(SUM(time_to_sec(Duracion))), "%H:%i")  AS Duracion,
+    Publicacion
+FROM Vista_CancionesAlbum WHERE idAlbum = idAlbumA GROUP BY Numero ORDER BY Numero;
 END$$
 
 DELIMITER ;
 
 /* ----------------------------------------------------------------- CANCIONES GRUPO ----------------------------------------------------------------- */
+DROP procedure IF EXISTS `obtener_canciones`;
 DELIMITER $$
 CREATE PROCEDURE `obtener_canciones`(IN idGrupoB INT)
 BEGIN
-SELECT * FROM Vista_CancionesGrupo WHERE idGrupo = idGrupoB;
+SELECT idCancion, Nombre, Albums, Duracion, Publicacion FROM Vista_CancionesGrupo WHERE idGrupo = idGrupoB;
 END$$
 
 DELIMITER ;
