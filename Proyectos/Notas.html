@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas</title>
+    <title>Aplicación NodeJS con MongoDB</title>
     <link rel="shortcut icon"
         href="https://cdn2.iconfinder.com/data/icons/whcompare-isometric-web-hosting-servers/50/database-cache-256.png"
         type="image/x-icon">
@@ -61,13 +61,13 @@
     <section id="sobremi">
         <div class="sobremi">
             <p class="titulo-seccion">¿En qué consiste este CRUD?</p>
-            <h2>CRUD <span>Notas (Aplicación completa)</span></h2>
+            <h2>CRUD <span>Aplicación NodeJS con MongoDB</span></h2>
             <h3>Para la realización de este CRUD se utilizaron los siguientes lenguajes: <strong>Nodejs, Mongodb,
-                    Express</strong>,
+                    Express asi como Handlebars</strong>,
                 para el diseño se utilizaron los framework de <strong>CSS y Bootstrap</strong>
                 asi como el gestor de bases de datos <strong>MongoDB</strong>.</h3>
-            <p>Este CRUD está realizado en base a una lista de notas en donde el usuario podra escribir sus notas, asi
-                como un login para asi separar los registros de cada usuario.</p>
+            <p>Este proyecto esta en base a una aplicación de notas en donde el usuario podrá guardar una variedad de
+                notas, siendo que estas notas no podrán ser visualizadas por otros usuarios.</p>
             <a href="https://github.com/RaulGeronimo/appNotes" target="_blank">Descargar Proyecto</a>
         </div>
 
@@ -83,11 +83,61 @@
     <section id="diagrama">
         <div class="sobremi">
             <p class="titulo-seccion">Diagrama de Base de Datos</p>
-            <p>Este diagrama consiste en un total de 1 coleccion, la cual es: <strong>tasks</strong>.</p>
+            <p>Este diagrama consiste en un total de 3 colecciones, las cuales son: <strong>Notes, Users y Sessions</strong>.</p>
             <div class="contenedor-diagrama">
                 <img src="../img/Notas/diagrama.png">
             </div>
             <a href="../img/Notas/diagrama.png" target="_blank">Diagrama</a>
+        </div>
+    </section>
+
+    <!-- COMPILADO -->
+    <!-- BD -->
+    <section id="sobremi">
+        <div class="sobremi">
+            <p class="titulo-seccion">Compilado</p>
+            <h3>Para poder compilar este proyecto, primero deberás contar algun editor de texto, asi como un gestor de
+                bases de Datos, en este caso se utilizo MongoDB.</h3>
+            <p>Primero se deberá modificar el Archivo de <strong>database.js</strong> que se encuentra en la carpeta de
+                src. Asi mismo se debera crear un archivo <strong>.env</strong> en donde se colocara la ruta de la base
+                de datos.</p>
+            <div class="contenedor-intro">
+                <img src="../img/Notas/Data.png">
+            </div>
+        </div>
+
+        <!-- Dev -->
+        <br>
+        <div class="sobremi">
+            <p>En una terminal se colocará el comando <strong>npm run dev</strong>. Esto también hara que se genere un usuario administrador.</p>
+            <div class="contenedor-intro">
+                <img src="../img/Notas/dev.png">
+            </div>
+        </div>
+    </section>
+
+    <!-- AGREGAR DATOS -->
+    <section id="diagrama">
+        <div class="sobremi">
+            <p class="titulo-seccion">Manejo del Programa</p>
+            <p>Para poder insertar registros, primero se debera registrar en la seccion de <strong>Registrar</strong> o también podria utilizar el usuario administrador.</p>
+            <div class="contenedor-intro">
+                <img src="../img/Notas/login.png">
+            </div>
+        </div>
+        <div class="sobremi">
+            <p class="titulo-seccion">Lista</p>
+            <p>Una vez que el usuario se encuentre registrado podra acceder, si el usuario no contiene notas el sistema se lo notificara.</p>
+            <div class="contenedor-intro">
+                <img src="../img/Notas/lista.png">
+            </div>
+        </div>
+        <div class="sobremi">
+            <p class="titulo-seccion">Notas</p>
+            <p>Cuando el usuario ya haya creado alguna nota en cada una de las notas se encontrara un boton para actualizar o en su defecto para eliminar, estas notas no las podran visualizar los demas usuarios.</p>
+            <div class="contenedor-intro">
+                <img src="../img/Notas/notas.png">
+            </div>
         </div>
     </section>
 
