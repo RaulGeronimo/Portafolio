@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio</title>
-    <link rel="shortcut icon"
-        href="https://cdn2.iconfinder.com/data/icons/whcompare-isometric-web-hosting-servers/50/database-cache-256.png"
-        type="image/x-icon">
+    <link rel="shortcut icon" href="./img/icono.png" type="image/x-icon">
     <!-- Estilo -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -20,7 +18,7 @@
 
 <body>
     <!-- INICIO -->
-    <section id="inicio">
+    <section class="inicio" id="inicio">
         <div class="contenido">
             <header>
                 <div class="contenido-header">
@@ -66,7 +64,10 @@
     </section>
 
     <!-- SOBRE MI -->
-    <section id="sobremi">
+    <section id="sobremi" class="sobremi-container">
+        <div class="contenedor-foto">
+            <img src="./img/foto.png" alt="">
+        </div>
         <div class="sobremi">
             <p class="titulo-seccion">Sobre mi</p>
             <h2>Hola, soy <span>Raúl Gerónimo</span></h2>
@@ -118,7 +119,7 @@
     </section>
 
     <!-- SERVICIOS -->
-    <section id="servicios">
+    <section id="servicios" class="servicios">
         <h3 class="titulo-seccion">Mis Servicios</h3>
         <div class="fila">
             <!-- Desarrollo Web -->
@@ -131,38 +132,40 @@
                     <li>CSS</li>
                     <li>PHP</li>
                 </ul>
-                <p>Poseo conocimientos básicos sobre el desarrollo web, lo cual es el manejo de un sitio asi como el
-                    manejo de PHP.</p>
+                <p>Poseo conocimientos básicos sobre el desarrollo web, en lo que esta incluido el uso de <strong>Html,
+                        Css, JavaScript, Handlebars</strong>. Para el trabajo con bases de datos puedo utilizar PHP y
+                    Angular utilizando los modulos de <strong>express, morgan y nodemon</strong>.</p>
             </div>
             <!-- Bases de Datos -->
             <div class="servicio">
                 <span class="icono"><i class="fa-solid fa-database"></i></span>
-                <h4>Gestion de Bases de Datos</h4>
+                <h4>Gestión de Bases de Datos</h4>
                 <hr>
                 <ul class="servicios-tag">
                     <li>MySQL</li>
                     <li>SQL Server</li>
                     <li>Workbench</li>
                 </ul>
-                <p>Tengo conocimientos sobre el manejo de las Bases de datos, asi como las funciones que se pueden
-                    utilizar en las mismas, tengo conocimientos de los lenguajes DML y DDL asi como los JOINS y las
-                    vistas.</p>
+                <p>Para el manejo de las bases de datos, tengo conocimientos del lenguaje SQL (<strong>MySQL, MariaDB y
+                        SQL Server</strong>) asi como las bases del lenguaje NoSQL. En el lenguaje SQL puedo utilizar
+                    los Triggers, asi como los <strong>Stored Procedures, las vistas y los Joins</strong>.</p>
             </div>
             <!-- Paqueteria Office -->
             <div class="servicio">
                 <span class="icono"><i class="fa-brands fa-microsoft"></i></span>
-                <h4>Paqueteria Office</h4>
+                <h4>Paquetería de Office</h4>
                 <hr>
                 <ul class="servicios-tag">
                     <li>Word</li>
                     <li>Excel</li>
                     <li>PowerPoint</li>
                 </ul>
-                <p>Tengo conocimientos básicos sobre los servicios de office, tengo una certificación de <strong>Office
-                        Specialist</strong>.</p>
+                <p>Cuento con la certificación de Office Specialist (MOS) en los que están las herramientas de
+                    <strong>Word, Excel y PowerPoint</strong>.</p>
             </div>
         </div>
     </section>
+
 
     <!-- SKILLS -->
     <section class="contenedor-skills" id="skills">
@@ -207,11 +210,11 @@
                 <div class="" id="Oracle"></div>
             </div>
         </div>
-
     </section>
 
+
     <!-- EDUCACION -->
-    <section id="educacion">
+    <section id="educacion" class="educacion">
         <h3 class="titulo-seccion">Mi educacion</h3>
         <div class="fila">
             <!-- CECyTEM -->
@@ -239,8 +242,9 @@
         </div>
     </section>
 
+
     <!-- PORTAFOLIO -->
-    <section id="portfolio">
+    <section id="portfolio" class="portfolio">
         <h3 class="titulo-seccion">Mis Proyectos</h3>
         <div class="fila">
             <!-- Transmision de Datos -->
@@ -248,7 +252,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Transmision Datos.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Transmision Datos.html" target="_blank">Transmision de
+                    <h4><a class="enlace" href="./Proyectos/Datos.html" target="_blank">Transmision de
                             Datos</a></h4>
                     <p>PHP - 2020 (Proyecto de Escuela)</p>
                     <!-- <p>Octubre - 2020 (Proyecto de Escuela)</p> -->
@@ -272,7 +276,7 @@
                 <img src="./img/Proyectos/Hibernate.png" alt="Proyecto">
                 <div class="info">
                     <h4><a class="enlace" href="./Proyectos/Hibernate.html" target="_blank">Música Hibernate</a></h4>
-                    <p>Hibernate, JavaServer Faces - 2021 (Proyecto de Escuela)</p>
+                    <p>JavaServer Faces - 2021 (Proyecto de Escuela)</p>
                     <!-- <p>Noviembre - 2021 (Proyecto de Escuela)</p> -->
                 </div>
             </div>
@@ -284,7 +288,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Musica.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Musica.html" target="_blank">Musica</a></h4>
+                    <h4><a class="enlace" href="./Proyectos/Musica.html" target="_blank">Música</a></h4>
                     <p>Spring y JSP - 2022 (Proyecto de Escuela)</p>
                     <!-- <p>Junio - 2022 (Proyecto de Escuela)</p> -->
                 </div>
@@ -330,8 +334,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Juegos.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Videojuegos.html" target="_blank">Repertorio de
-                            Videojuegos</a></h4>
+                    <h4><a class="enlace" href="./Proyectos/Videojuegos.html" target="_blank">Videojuegos</a></h4>
                     <p>PHP - 2023 (Proyecto Personal)</p>
                     <!-- <p>Enero - 2023 (Proyecto Personal)</p> -->
                 </div>
@@ -342,9 +345,9 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Repertorio.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Repertorio.html" target="_blank">Repertorio de Música</a>
+                    <h4><a class="enlace" href="./Proyectos/Repertorio.html" target="_blank">Repertorio</a>
                     </h4>
-                    <p>Angular - 2023</p>
+                    <p>Angular - 2023 (Proyecto Personal)</p>
                     <!-- <p>Febrero - 2023</p> -->
                 </div>
             </div>
@@ -356,7 +359,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Mongo.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Mongo.html" target="_blank">Notas</a></h4>
+                    <h4><a class="enlace" href="./Proyectos/Mongo.html" target="_blank">Tareas</a></h4>
                     <p>Nodejs - 2023 (Proyecto Personal)</p>
                     <!-- <p>Diciembre - 2022 (Proyecto Personal)</p> -->
                 </div>
@@ -367,7 +370,7 @@
                 <div class="overlay"></div>
                 <img src="./img/Proyectos/Notas.png" alt="Proyecto">
                 <div class="info">
-                    <h4><a class="enlace" href="./Proyectos/Notas.html" target="_blank">Aplicación Completa</a></h4>
+                    <h4><a class="enlace" href="./Proyectos/Notas.html" target="_blank">Notas</a></h4>
                     <p>NodeJS - 2023 (Proyecto Personal)</p>
                     <!-- <p>Diciembre - 2022 (Proyecto Personal)</p> -->
                 </div>
@@ -376,7 +379,7 @@
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto">
+    <section id="contacto" class="contacto">
         <h3 class="titulo-seccion">Contactame</h3>
         <div class="contenedor-form"><br>
             <div class="scroll">
@@ -399,7 +402,8 @@
                             <th scope="row">Número de Telefono</th>
                             <!-- <td>(552) 897-3869</td> -->
                             <td><a class="enlace" href="https://api.whatsapp.com/send?phone=5528973869"
-                                    target="_blank">(552) 897-3869</a></td>
+                                    target="_blank">(552)
+                                    897-3869</a></td>
                         </tr>
                         <!-- Correo -->
                         <tr>

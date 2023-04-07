@@ -1,3 +1,4 @@
+/* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 
 * {
@@ -15,15 +16,19 @@ h1 {
     font-size: 25px;
 }
 
-/* ---------------------------------- SECCION INICIO ---------------------------------- */
-#inicio {
-    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("../img/fondo.jpg");
+/* ----------------------------------------------------------------------------------------- Nav ----------------------------------------------------------------------------------------- */
+.cabecera {
     background-size: cover;
     background-position: center center;
     height: 100vh;
 }
 
-#inicio .contenido header {
+.titulo:hover {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.contenido header {
     background-color: rgb(0, 0, 0);
     position: fixed;
     width: 100%;
@@ -31,7 +36,7 @@ h1 {
     top: 0;
 }
 
-#inicio .contenido header .contenido-header {
+.contenido header .contenido-header {
     max-width: 1100px;
     margin: auto;
     display: flex;
@@ -40,18 +45,18 @@ h1 {
     padding: 10px 20px;
 }
 
-#inicio .contenido header .contenido-header h1 {
+.contenido header .contenido-header h1 {
     text-align: center;
     color: #509cff;
 }
 
-#inicio .contenido header .contenido-header nav ul {
+.contenido header .contenido-header nav ul {
     list-style: none;
     display: flex;
     align-items: center;
 }
 
-#inicio .contenido header .contenido-header nav ul li a {
+.contenido header .contenido-header nav ul li a {
     text-decoration: none;
     color: #fff;
     margin: 0 12px;
@@ -59,11 +64,11 @@ h1 {
     transition: .5s;
 }
 
-#inicio .contenido header .contenido-header nav ul li a:hover {
+.contenido header .contenido-header nav ul li a:hover {
     color: #509cff;
 }
 
-#inicio .contenido header .contenido-header .redes a {
+.contenido header .contenido-header .redes a {
     text-decoration: none;
     color: #fff;
     display: inline-block;
@@ -71,15 +76,61 @@ h1 {
     transition: .5s;
 }
 
-#inicio .contenido header .contenido-header .redes a:hover {
+.contenido header .contenido-header .redes a:hover {
     color: #509cff;
 }
 
-#inicio .contenido header .contenido-header .seleccionado {
+.contenido header .contenido-header .seleccionado {
     color: #509cff;
 }
 
-#inicio .contenido .presentacion {
+#icono-nav {
+    color: #fff;
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .redes {
+        display: none;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.responsive {
+        display: block;
+        background-color: rgb(0, 0, 0);
+        width: 100%;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    nav.responsive ul {
+        display: block !important;
+        text-align: center;
+    }
+
+    nav.responsive ul li {
+        margin: 5px 0;
+    }
+
+    #icono-nav {
+        display: block;
+    }
+}
+
+/* --------------------------------------------------------------------------------------- Inicio --------------------------------------------------------------------------------------- */
+.inicio {
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url("../img/fondo.jpg");
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+}
+
+.presentacion {
     max-width: 1100px;
     height: 100vh;
     margin: auto;
@@ -90,32 +141,31 @@ h1 {
     justify-content: center;
 }
 
-#inicio .contenido .presentacion .bienvenida {
+.presentacion .bienvenida {
     font-size: 16px;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 5px;
 }
 
-#inicio .contenido .presentacion h2 {
+.presentacion h2 {
     font-size: 55px;
     margin-bottom: 25px;
     text-align: center;
 }
 
-#inicio .contenido .presentacion h2 span {
-    /* font-size: 25px; */
+.presentacion h2 span {
     color: #509cff;
 }
 
-#inicio .contenido .presentacion .descripcion {
+.presentacion .descripcion {
     max-width: 700px;
     margin: 25px auto;
     font-size: 18px;
     text-align: center;
 }
 
-#inicio .contenido .presentacion a {
+.presentacion a {
     text-decoration: none;
     display: inline-block;
     margin: 25px;
@@ -128,17 +178,25 @@ h1 {
     transition: .5s;
 }
 
-#inicio .contenido .presentacion a:hover {
+.presentacion a:hover {
     background-color: #509cff;
 }
 
-#icono-nav {
-    color: #fff;
-    display: none;
+.bienvenida {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
 }
 
-/* ---------------------------------- SECCION SOBRE MI ---------------------------------- */
-#sobremi {
+@media screen and (max-width: 800px) {
+    .presentacion h2 {
+        font-size: 40px;
+    }
+}
+
+/* -------------------------------------------------------------------------------------- Sobre Mi -------------------------------------------------------------------------------------- */
+.sobremi-container {
     max-width: 1100px;
     margin: auto;
     padding: 100px 15px;
@@ -146,23 +204,23 @@ h1 {
     display: flex;
 }
 
-#sobremi .contenedor-foto {
+.contenedor-foto {
     max-width: 400px;
     margin-right: 80px;
 }
 
-#sobremi .contenedor-foto img {
+.contenedor-foto img {
     padding: 50px;
     width: 100%;
     border-radius: 20px;
     background-color: #f3f3f3;
 }
 
-#sobremi .sobremi {
+.sobremi {
     margin: 0 40px;
 }
 
-#sobremi .sobremi .titulo-seccion {
+.sobremi .titulo-seccion {
     font-size: 22px;
     text-transform: uppercase;
     color: #111135;
@@ -171,18 +229,18 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
-#sobremi .sobremi h2 {
+.sobremi h2 {
     font-size: 34px;
     font-weight: bold;
     margin: 20px 0;
     letter-spacing: 2px;
 }
 
-#sobremi .sobremi h2 span {
+.sobremi h2 span {
     color: #509cff;
 }
 
-#sobremi .sobremi h3 {
+.sobremi h3 {
     font-size: 18px;
     font-weight: 500;
     text-transform: uppercase;
@@ -190,14 +248,14 @@ h1 {
     letter-spacing: 1px;
 }
 
-#sobremi .sobremi p {
+.sobremi p {
     font-size: 14px;
     line-height: 25px;
     color: #565656;
     margin-bottom: 12px;
 }
 
-#sobremi .sobremi a {
+.sobremi a {
     display: inline-block;
     text-decoration: none;
     color: #000;
@@ -208,18 +266,17 @@ h1 {
     transition: .5s;
 }
 
-#sobremi .sobremi a:hover {
+.sobremi a:hover {
     background-color: #509cff;
     color: #fff;
 }
 
-/* Link en las tablas */
-#sobremi .sobremi .enlace {
+.sobremi .enlace {
     text-decoration: none;
     display: contents;
 }
 
-#sobremi .sobremi .enlace:hover {
+.sobremi .enlace:hover {
     color: #509cff;
     text-decoration: solid;
 }
@@ -230,14 +287,39 @@ h1 {
     overflow-x: auto;
 }
 
-/* ---------------------------------- SECCION SERVICIOS ---------------------------------- */
-#servicios {
+@media screen and (max-width: 800px) {
+    .sobremi-container {
+        padding: 50px 0;
+        display: block;
+    }
+
+    .contenedor-foto {
+        max-width: 200px;
+        margin: auto;
+    }
+
+    .contenedor-foto img {
+        padding: 8px;
+    }
+
+    .sobremi .titulo-seccion {
+        text-align: center;
+    }
+
+    .sobremi h2 {
+        font-size: 25px;
+        text-align: center;
+    }
+}
+
+/* -------------------------------------------------------------------------------------- Servicios -------------------------------------------------------------------------------------- */
+.servicios {
     padding: 100px 15px;
     text-align: center;
     background-color: #f3f3f3;
 }
 
-#servicios .titulo-seccion {
+.servicios .titulo-seccion {
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
@@ -247,14 +329,14 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
-#servicios .fila {
+.servicios .fila {
     display: flex;
     justify-content: space-between;
     max-width: 1150px;
     margin: 30px auto;
 }
 
-#servicios .fila .servicio {
+.servicios .fila .servicio {
     max-width: 350px;
     background-color: #fff;
     padding: 30px;
@@ -263,11 +345,11 @@ h1 {
     transition: .5s;
 }
 
-#servicios .fila .servicio:hover {
+.servicios .fila .servicio:hover {
     box-shadow: 5px 5px 10px #565656, -5px -5px 10px #8a8a8a;
 }
 
-#servicios .fila .servicio .icono {
+.servicios .fila .servicio .icono {
     display: inline-block;
     width: 60px;
     height: 60px;
@@ -277,31 +359,45 @@ h1 {
     margin-bottom: 25px;
 }
 
-#servicios .fila .servicio h4 {
+.servicios .fila .servicio h4 {
     font-size: 22px;
     margin-bottom: 25px;
 }
 
-#servicios .fila .servicio hr {
+.servicios .fila .servicio hr {
     width: 30%;
     margin: auto;
     color: #000;
     margin-bottom: 25px;
 }
 
-#servicios .fila .servicio ul {
+.servicios .fila .servicio ul {
     list-style: none;
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
 }
 
-#servicios .fila .servicio p {
+.servicios .fila .servicio p {
     font-size: 14px;
     line-height: 22px;
 }
 
-/* ---------------------------- SECCION SKILLS - HABILIDADES ---------------------------- */
+@media screen and (max-width: 800px) {
+    .servicios {
+        padding: 50px 15px;
+    }
+
+    .servicios .fila {
+        display: block;
+    }
+
+    .servicios .fila .servicio {
+        margin: 10px auto;
+    }
+}
+
+/* --------------------------------------------------------------------------------------- Skills ---------------------------------------------------------------------------------------- */
 .contenedor-skills {
     background: linear-gradient(#2C5364, rgba(33, 16, 16, 0.8)), url("../img/skills.jpg");
     background-attachment: fixed;
@@ -406,14 +502,21 @@ h1 {
     }
 }
 
-/* ---------------------------------- SECCION EDUCACION ---------------------------------- */
-#educacion {
+@media screen and (max-width: 800px) {
+    .contenedor-skills {
+        padding: 50px 20px;
+    }
+}
+
+
+/* -------------------------------------------------------------------------------------- Educacion -------------------------------------------------------------------------------------- */
+.educacion {
     padding: 100px 15px;
     text-align: center;
     background-color: #f3f3f3;
 }
 
-#educacion .titulo-seccion {
+.educacion .titulo-seccion {
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
@@ -423,14 +526,14 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
-#educacion .fila {
+.educacion .fila {
     display: flex;
     justify-content: space-evenly;
     max-width: 1150px;
     margin: 30px auto;
 }
 
-#educacion .fila .servicio {
+.educacion .fila .servicio {
     max-width: 350px;
     background-color: #fff;
     padding: 30px;
@@ -439,11 +542,11 @@ h1 {
     transition: .5s;
 }
 
-#educacion .fila .servicio:hover {
+.educacion .fila .servicio:hover {
     box-shadow: 5px 5px 10px #565656, -5px -5px 10px #8a8a8a;
 }
 
-#educacion .fila .servicio .icono {
+.educacion .fila .servicio .icono {
     display: inline-block;
     width: 60px;
     height: 60px;
@@ -453,38 +556,52 @@ h1 {
     margin-bottom: 25px;
 }
 
-#educacion .fila .servicio h4 {
+.educacion .fila .servicio h4 {
     font-size: 22px;
     margin-bottom: 25px;
 }
 
-#educacion .fila .servicio hr {
+.educacion .fila .servicio hr {
     width: 30%;
     margin: auto;
     color: #000;
     margin-bottom: 25px;
 }
 
-#educacion .fila .servicio ul {
+.educacion .fila .servicio ul {
     list-style: none;
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
 }
 
-#educacion .fila .servicio p {
+.educacion .fila .servicio p {
     font-size: 14px;
     line-height: 22px;
 }
 
-/* --------------------------------- SECCION PORTAFOLIO --------------------------------- */
-#portfolio {
+@media screen and (max-width: 800px) {
+    .educacion {
+        padding: 50px 15px;
+    }
+
+    .educacion .fila {
+        display: block;
+    }
+
+    .educacion .fila .servicio {
+        margin: 10px auto;
+    }
+}
+
+/* ------------------------------------------------------------------------------------- Portafolio -------------------------------------------------------------------------------------- */
+.portfolio {
     max-width: 1100px;
     padding: 100px 0;
     margin: auto;
 }
 
-#portfolio .titulo-seccion {
+.portfolio .titulo-seccion {
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
@@ -494,13 +611,13 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
-#portfolio .fila {
+.portfolio .fila {
     display: flex;
     justify-content: space-between;
     margin: 30px 0;
 }
 
-#portfolio .fila .proyecto {
+.portfolio .fila .proyecto {
     max-width: 450px;
     border: 1px solid #000;
     margin: 0 10px;
@@ -508,20 +625,20 @@ h1 {
     overflow: hidden;
 }
 
-#portfolio .fila .proyecto img {
+.portfolio .fila .proyecto img {
     width: 100%;
     height: 100%;
+    ;
     filter: grayscale(1);
     object-fit: cover;
     transition: .5s;
-    max-width: 344px;
 }
 
-#portfolio .fila .proyecto:hover img {
+.portfolio .fila .proyecto:hover img {
     filter: grayscale(0);
 }
 
-#portfolio .fila .proyecto .info {
+.portfolio .fila .proyecto .info {
     position: absolute;
     left: 0px;
     background-color: rgba(0, 0, 0, 0.8);
@@ -533,63 +650,77 @@ h1 {
     transition: .5s;
 }
 
-#portfolio .fila .proyecto:hover .info {
+.portfolio .fila .proyecto:hover .info {
     opacity: 1;
     bottom: 0;
 }
 
-#portfolio .enlace {
+.portfolio .enlace {
     text-decoration: none;
     display: contents;
 }
 
-#portfolio .enlace:hover {
+.portfolio .enlace:hover {
     color: #50ff76;
     text-decoration: solid;
     transition: 2s;
 }
 
-/* ---------------------------------- SECCION CONTACTO ---------------------------------- */
-#contacto {
+@media screen and (max-width: 800px) {
+    .portfolio {
+        padding: 50px 0;
+    }
+
+    .portfolio .fila {
+        display: block;
+    }
+
+    .portfolio .fila .proyecto {
+        margin: 10px auto;
+    }
+}
+
+/* -------------------------------------------------------------------------------------- Contacto --------------------------------------------------------------------------------------- */
+.contacto {
     padding: 100px 15px;
     background-color: #f3f3f3;
 }
 
-#contacto .titulo-seccion {
+.contacto .titulo-seccion {
     margin-bottom: 20px;
 }
 
-#contacto .contenedor-form {
+.contacto .contenedor-form {
     max-width: 1100px;
     margin: auto;
 }
 
-#contacto .contenedor-form .fila {
+.contacto .contenedor-form .fila {
     margin-bottom: 15px;
 }
 
-#contacto .contenedor-form .mitad {
+.contacto .contenedor-form .mitad {
     display: flex;
     justify-content: space-between;
 }
 
-#contacto .contenedor-form input,
-#contacto .contenedor-form textarea {
+.contacto .contenedor-form input,
+.contacto .contenedor-form textarea {
     padding: 20px;
     border-radius: 20px;
     border: none;
     border: 1px solid #919191;
 }
 
-#contacto .contenedor-form .mitad input {
+.contacto .contenedor-form .mitad input {
     width: 48%;
 }
 
-#contacto .contenedor-form .input-full {
+.contacto .contenedor-form .input-full {
     width: 100%;
 }
 
-#contacto .titulo-seccion {
+.contacto .titulo-seccion {
     text-align: center;
     font-size: 22px;
     text-transform: uppercase;
@@ -599,7 +730,7 @@ h1 {
     text-decoration-thickness: 5px;
 }
 
-#contacto .btn-enviar {
+.contacto .btn-enviar {
     display: block;
     margin: auto;
     cursor: pointer;
@@ -607,24 +738,162 @@ h1 {
     padding: 10px 15px !important;
 }
 
-#contacto .btn-enviar:hover {
+.contacto .btn-enviar:hover {
     background-color: #509cff;
     color: #fff;
 }
 
-#contacto .enlace {
+.contacto .enlace {
     color: #000;
     text-decoration: none;
     display: contents;
 }
 
-#contacto .enlace:hover {
+.contacto .enlace:hover {
     color: #509cff;
     text-decoration: solid;
     transition: 1s;
 }
 
-/* --------------------------------------- FOOTER --------------------------------------- */
+@media screen and (max-width: 800px) {
+    .contacto {
+        padding: 50px 15px;
+    }
+
+    .contacto .contenedor-form .mitad {
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .contacto .contenedor-form .mitad input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* -------------------------------------------------------------------------------------- Proyectos -------------------------------------------------------------------------------------- */
+.intro-proyecto {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 15px;
+    color: #111135;
+}
+
+.intro-proyecto .sobremi {
+    margin: 0 40px;
+}
+
+.intro-proyecto .sobremi .titulo-seccion {
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #111135;
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3;
+    text-decoration-thickness: 5px;
+}
+
+.intro-proyecto .sobremi h2 {
+    font-size: 34px;
+    font-weight: bold;
+    margin: 20px 0;
+    letter-spacing: 2px;
+}
+
+.intro-proyecto .sobremi h2 span {
+    color: #509cff;
+}
+
+.intro-proyecto .sobremi h3 {
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.intro-proyecto .sobremi p {
+    font-size: 14px;
+    line-height: 25px;
+    color: #565656;
+    margin-bottom: 12px;
+}
+
+.intro-proyecto .sobremi a {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    border-radius: 30px;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    margin-top: 30px;
+    transition: .5s;
+    margin-left: 10px;
+}
+
+.intro-proyecto .sobremi a:hover {
+    background-color: #509cff;
+    color: #fff;
+}
+
+.contenedor-intro img,
+video {
+    padding: 20px;
+    width: 100%;
+    border-radius: 20px;
+    background-color: #f3f3f3;
+}
+
+/* ---------------------------------------------------------- Diagrama ---------------------------------------------------------- */
+.diagrama {
+    padding: 30px 15px;
+    text-align: center;
+    background-color: #f3f3f3;
+}
+
+.diagrama .sobremi {
+    margin: 0 40px;
+}
+
+.diagrama .sobremi .titulo-seccion {
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #111135;
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3;
+    text-decoration-thickness: 5px;
+}
+
+.diagrama .contenedor-diagrama img {
+    padding: 20px;
+    /* width: 50%; */
+    width: 70vh;
+    border-radius: 20px;
+    background-color: #f3f3f3;
+}
+
+.diagrama .sobremi a {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    border-radius: 30px;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    margin-top: 30px;
+    transition: .5s;
+}
+
+.diagrama .sobremi a:hover {
+    background-color: #509cff;
+    color: #fff;
+}
+
+@media screen and (max-width: 800px) {
+    .diagrama .contenedor-diagrama img {
+        width: 100%;
+        padding: 8px;
+    }
+}
+
 footer {
     background-color: #000;
     color: #fff;
@@ -638,129 +907,4 @@ footer a {
     display: inline-block;
     margin: 5px;
     font-size: 26px;
-}
-
-/* RESPONSIVE */
-@media screen and (max-width: 800px) {
-    .redes {
-        display: none;
-    }
-
-    nav {
-        display: none;
-    }
-
-    nav.responsive {
-        display: block;
-        background-color: rgb(0, 0, 0);
-        width: 100%;
-        position: absolute;
-        top: 48px;
-        left: 0;
-        padding: 10px 0;
-    }
-
-    nav.responsive ul {
-        display: block !important;
-        text-align: center;
-    }
-
-    nav.responsive ul li {
-        margin: 5px 0;
-    }
-
-    #icono-nav {
-        display: block;
-    }
-
-    #inicio .contenido .presentacion h2 {
-        font-size: 40px;
-    }
-
-    /* SECCION SOBRE MI */
-    #sobremi {
-        padding: 50px 0;
-        display: block;
-    }
-
-    #sobremi .contenedor-foto {
-        max-width: 200px;
-        margin: auto;
-    }
-
-    #sobremi .contenedor-foto img {
-        padding: 8px;
-    }
-
-    #sobremi .sobremi .titulo-seccion {
-        text-align: center;
-    }
-
-    #sobremi .sobremi h2 {
-        font-size: 25px;
-        text-align: center;
-    }
-
-    /* SECCION SERVICIOS */
-    #servicios {
-        padding: 50px 15px;
-    }
-
-    #servicios .fila {
-        display: block;
-    }
-
-    #servicios .fila .servicio {
-        margin: 10px auto;
-    }
-
-    /* SECCION SKILLS */
-    .contenedor-skills {
-        padding: 50px 20px;
-    }
-
-    /* SECCION EDUCACION */
-    #educacion {
-        padding: 50px 15px;
-    }
-
-    #educacion .fila {
-        display: block;
-    }
-
-    #educacion .fila .servicio {
-        margin: 10px auto;
-    }
-
-    /* SECCION PORTAFOLIO */
-    #portfolio {
-        padding: 50px 0;
-    }
-
-    #portfolio .fila {
-        display: block;
-    }
-
-    #portfolio .fila .proyecto {
-        margin: 10px auto;
-    }
-
-    #portfolio .fila .proyecto img {
-        max-width: max-content;
-    }
-
-    /* SECCION CONTACTO */
-    #contacto {
-        padding: 50px 15px;
-    }
-
-    #contacto .contenedor-form .mitad {
-        margin-bottom: 15px;
-        display: block;
-    }
-
-    #contacto .contenedor-form .mitad input {
-        width: 100%;
-        margin-bottom: 15px;
-    }
 }
